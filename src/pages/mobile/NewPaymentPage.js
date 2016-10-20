@@ -1,95 +1,21 @@
 import React, { Component } from 'react';
-import {arrayContains, arrayRemove, formatDate} from '../../js/common';
+import {formatDate} from '../../js/common';
 
 class NewPaymentPage extends Component {
     constructor(props){
         super(props);
         this.state = {
             payment: {
-                name: '测试',
+                name: '',
                 amount: '',
                 vault: {id: 1, name: 'Cash'},
                 category: {id: 1, name: '分类1'},
                 date: new Date(),
                 remark: 'no remark.'
-            }
+            },
+            focusInput: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleInputBlur = this.handleInputBlur.bind(this);
-    }
-    componentDidMount(){
-        let inputs = Array.from(document.getElementsByClassName("inputs-list")[0].getElementsByTagName('input'));
-        const selects = Array.from(document.getElementsByClassName("inputs-list")[0].getElementsByTagName('select'));
-        const textareas = Array.from(document.getElementsByClassName("inputs-list")[0].getElementsByTagName('textarea'));
-        for(let input of  inputs.concat(selects, textareas)){
-            this.setInputState(input);
-        }
-    }
-    handleInputFocus(event){
-        const input = event.target;
-        const inputClassNames = input.className.split(' ');
-        if(!arrayContains(inputClassNames, 'focus-state')){
-            inputClassNames.push('focus-state');
-            input.className= inputClassNames.join(' ');
-        }
-        
-        const itemInput = input.parentNode;
-        const itemInputClassNames = itemInput.className.split(' ');
-        if(!arrayContains(itemInputClassNames, 'focus-state')){
-            itemInputClassNames.push('focus-state');
-            itemInput.className= itemInputClassNames.join(' ');
-        }
-
-        const itemInner = itemInput.parentNode;
-        const itemInnerClassNames = itemInner.className.split(' ');
-        if(!arrayContains(itemInnerClassNames, 'focus-state')){
-            itemInnerClassNames.push('focus-state');
-            itemInner.className= itemInnerClassNames.join(' ');
-        }
-    }
-    handleInputBlur(event){
-        const input = event.target;
-        let inputClassNames = input.className.split(' ');
-        if(arrayContains(inputClassNames, 'focus-state')){
-            input.className = arrayRemove(inputClassNames, 'focus-state').join(' ');
-        }
-        
-        const itemInput = input.parentNode;
-        let itemInputClassNames = itemInput.className.split(' ');
-        if(arrayContains(itemInputClassNames, 'focus-state')){
-            itemInput.className = arrayRemove(itemInputClassNames, 'focus-state').join(' ');
-        }
-
-        const itemInner = itemInput.parentNode;
-        let itemInnerClassNames = itemInner.className.split(' ');
-        if(arrayContains(itemInnerClassNames, 'focus-state')){
-            itemInner.className = arrayRemove(itemInnerClassNames, 'focus-state').join(' ');
-        }
-
-        this.setInputState(input);
-    }
-    setInputState(input){
-        let inputClassNames = input.className.split(' ');
-
-        const itemInput = input.parentNode;
-        let itemInputClassNames = itemInput.className.split(' ');
-
-        const itemInner = itemInput.parentNode;
-        let itemInnerClassNames = itemInner.className.split(' ');
-        if(input.value){
-            inputClassNames.push('not-empty-state');
-            input.className= inputClassNames.join(' ');
-
-            itemInputClassNames.push('not-empty-state');
-            itemInput.className= itemInputClassNames.join(' ');
-
-            itemInnerClassNames.push('not-empty-state');
-            itemInner.className= itemInnerClassNames.join(' ');
-        }else{
-            input.className = arrayRemove(inputClassNames, 'not-empty-state').join(' ');
-            itemInput.className = arrayRemove(itemInputClassNames, 'not-empty-state').join(' ');
-            itemInner.className = arrayRemove(itemInnerClassNames, 'not-empty-state').join(' ');
-        }
     }
     handleInputChange(event){
         const input = event.target;
@@ -118,6 +44,52 @@ class NewPaymentPage extends Component {
         this.setState({payment: payment});
     }
     render() {
+        let inputNameFocusStateClass, inputAmountFocusStateClass, inputVaultFocusStateClass,
+            inputCategoryFocusStateClass, inputDateFocusStateClass, inputRemarkFocusStateClass = null;
+        let inputNameNotEmptyStateClass, inputAmountNotEmptyStateClass, inputVaultNotEmptyStateClass,
+            inputCategoryNotEmptyStateClass, inputDateNotEmptyStateClass, inputRemarkNotEmptyStateClass = null;
+        if(this.state.focusInput === 'inputName'){
+            inputNameFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.name){
+                inputNameNotEmptyStateClass = 'not-empty-state';
+            }
+        }
+        if(this.state.focusInput === 'inputAmount'){
+            inputAmountFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.amount){
+                inputAmountNotEmptyStateClass = 'not-empty-state';
+            }
+        }
+        if(this.state.focusInput === 'inputVault'){
+            inputVaultFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.vault.id){
+                inputVaultNotEmptyStateClass = 'not-empty-state';
+            }
+        }
+        if(this.state.focusInput === 'inputCategory'){
+            inputCategoryFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.category.id){
+                inputCategoryNotEmptyStateClass = 'not-empty-state';
+            }
+        }
+        if(this.state.focusInput === 'inputDate'){
+            inputDateFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.date){
+                inputDateNotEmptyStateClass = 'not-empty-state';
+            }
+        }
+        if(this.state.focusInput === 'inputRemark'){
+            inputRemarkFocusStateClass = 'focus-state';
+        }else{
+            if(this.state.payment.remark){
+                inputRemarkNotEmptyStateClass = 'not-empty-state';
+            }
+        }
         return (
             <div className="view view-main">
                 <div className="pages navbar-fixed">
@@ -134,14 +106,14 @@ class NewPaymentPage extends Component {
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-name"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Your name</div>
-                                            <div className="item-input item-input-field">
-                                                <input type="text" placeholder="" className=""
+                                            <div className={`item-input item-input-field ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
+                                                <input type="text" placeholder="" className={`${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}
                                                     name='name'
                                                     value={this.state.payment.name}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputName'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}/>
                                             </div>
                                         </div>
@@ -150,14 +122,14 @@ class NewPaymentPage extends Component {
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-email"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputAmountFocusStateClass} ${inputAmountNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Amount</div>
-                                            <div className="item-input item-input-field">
-                                                <input type="number" placeholder="" className=""
+                                            <div className={`item-input item-input-field ${inputAmountFocusStateClass} ${inputAmountNotEmptyStateClass}`}>
+                                                <input type="number" placeholder="" className={`${inputAmountFocusStateClass} ${inputAmountNotEmptyStateClass}`}
                                                     name='amount'
                                                     value={this.state.payment.amount}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputAmount'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}/>
                                             </div>
                                         </div>
@@ -166,14 +138,14 @@ class NewPaymentPage extends Component {
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-gender"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Gender</div>
-                                            <div className="item-input item-input-field">
-                                                <select className=""
+                                            <div className={`item-input item-input-field ${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}>
+                                                <select className={`${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}
                                                     name='vault'
                                                     value={this.state.payment.vault.id}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputVault'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}>
                                                     <option value=''> </option>
                                                     <option value='1'>Cash</option>
@@ -186,14 +158,14 @@ class NewPaymentPage extends Component {
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-gender"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">分类</div>
-                                            <div className="item-input item-input-field">
-                                                <select className=""
+                                            <div className={`item-input item-input-field ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}>
+                                                <select className={`${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}
                                                     name='category'
                                                     value={this.state.payment.category.id}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputCategory'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}>
                                                     <option value=''> </option>
                                                     <option value='1'>分类1</option>
@@ -206,14 +178,14 @@ class NewPaymentPage extends Component {
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-url"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputDateFocusStateClass} ${inputDateNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">日期</div>
-                                            <div className="item-input item-input-field">
-                                                <input type="date" placeholder="" className="" 
+                                            <div className={`item-input item-input-field ${inputDateFocusStateClass} ${inputDateNotEmptyStateClass}`}>
+                                                <input type="date" placeholder="" className={`${inputDateFocusStateClass} ${inputDateNotEmptyStateClass}`}
                                                     name='date'
                                                     value={formatDate(this.state.payment.date, 'yyyy-MM-dd')}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputDate'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}/>
                                             </div>
                                         </div>
@@ -222,14 +194,14 @@ class NewPaymentPage extends Component {
                                 <li className="align-top">
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-comment"></i></div>
-                                        <div className="item-inner">
+                                        <div className={`item-inner ${inputRemarkFocusStateClass} ${inputRemarkNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Resizeable Textarea</div>
-                                            <div className="item-input item-input-field">
-                                                <textarea className="resizable"
+                                            <div className={`item-input item-input-field ${inputRemarkFocusStateClass} ${inputRemarkNotEmptyStateClass}`}>
+                                                <textarea className={`resizable ${inputRemarkFocusStateClass} ${inputRemarkNotEmptyStateClass}`}
                                                     name='remark'
                                                     value={this.state.payment.remark}
-                                                    onFocus={this.handleInputFocus}
-                                                    onBlur={this.handleInputBlur}
+                                                    onFocus={() => {this.setState({focusInput: 'inputRemark'})}}
+                                                    onBlur={() => {this.setState({focusInput: null})}}
                                                     onChange={this.handleInputChange}></textarea>
                                             </div>
                                         </div>
