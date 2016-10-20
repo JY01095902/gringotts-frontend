@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {formatDate} from '../../js/common';
+import '../../css/mobile/NewPaymentPage.css';
 
 class NewPaymentPage extends Component {
     constructor(props){
@@ -8,14 +9,15 @@ class NewPaymentPage extends Component {
             payment: {
                 name: '',
                 amount: '',
-                vault: {id: 1, name: 'Cash'},
-                category: {id: 1, name: '分类1'},
+                vault: {id: '', name: ''},
+                category: {id: '', name: ''},
                 date: new Date(),
-                remark: 'no remark.'
+                remark: ''
             },
             focusInput: null
         };
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleComplete = this.handleComplete.bind(this);
     }
     handleInputChange(event){
         const input = event.target;
@@ -42,6 +44,9 @@ class NewPaymentPage extends Component {
         }else{ }
         
         this.setState({payment: payment});
+    }
+    handleComplete(){
+        console.log('点击了完成')
     }
     render() {
         let inputNameFocusStateClass, inputAmountFocusStateClass, inputVaultFocusStateClass,
@@ -97,6 +102,15 @@ class NewPaymentPage extends Component {
                     <div className="navbar">
                         <div className="navbar-inner">
                             <div className="center">New Payment</div>
+                        </div>
+                    </div>
+                    <div className="toolbar toolbar-bottom">
+                        <div className="toolbar-inner">
+                            <a href="#/mobile" className="link"><i className="icon icon-back"></i></a>
+                            <a className="link"
+                                onClick={this.handleComplete}>
+                                <i className="icon icon-check"></i>{}<span style={{marginLeft: '3px'}}>完成</span>
+                            </a>
                         </div>
                     </div>
                     <div className="page-content">

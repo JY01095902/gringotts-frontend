@@ -57,7 +57,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-list-alt fa-lg"></i></div>
+                                                        <div className="item-media"><i className="icon fa fa-list-alt fa-lg" style={{color: '#757575'}}></i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">明细</div>
                                                         </div>
@@ -66,7 +66,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-pie-chart fa-lg"></i></div>
+                                                        <div className="item-media"><i className="icon fa fa-pie-chart fa-lg" style={{color: '#757575'}}></i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">统计</div>
                                                         </div>
@@ -76,7 +76,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-credit-card-alt fa-lg"></i></div>
+                                                        <div className="item-media"><i className="icon fa fa-credit-card-alt fa-lg" style={{color: '#757575'}}></i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">金库</div>
                                                         </div>
@@ -86,7 +86,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-user fa-lg"></i></div>
+                                                        <div className="item-media"><i className="icon fa fa-user fa-lg" style={{color: '#757575'}}></i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">我</div>
                                                         </div>
