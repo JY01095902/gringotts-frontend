@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {formatDate} from '../../js/common';
 import '../../css/mobile/NewPaymentPage.css';
+import CategoriesPopup from './CategoriesPopup' 
 
 class NewPaymentPage extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class NewPaymentPage extends Component {
                 date: new Date(),
                 remark: ''
             },
-            focusInput: null
+            focusInput: null,
+            showCategoriesPopup: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
@@ -36,7 +38,8 @@ class NewPaymentPage extends Component {
         }else if(name === 'vault'){
             payment.vault.id = input.value;
         }else if(name === 'category'){
-            payment.category.id = input.value;
+            payment.category.id = input.category.id;
+            payment.category.name = input.category.name;
         }else if(name === 'date'){
             payment.date = new Date(input.value);
         }else if(name === 'remark'){
@@ -95,6 +98,7 @@ class NewPaymentPage extends Component {
                 inputRemarkNotEmptyStateClass = 'not-empty-state';
             }
         }
+
         return (
             <div className="view view-main">
                 <div className="pages navbar-fixed">
@@ -114,14 +118,13 @@ class NewPaymentPage extends Component {
                         </div>
                     </div>
                     <div className="page-content">
-                        <div className="content-block-title">With Floating Labels</div>
                         <div className="list-block inputs-list">
                             <ul>
                                 <li>
                                     <div className="item-content">
                                         <div className="item-media"><i className="icon icon-form-name"></i></div>
                                         <div className={`item-inner ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
-                                            <div className="item-title floating-label">Your name</div>
+                                            <div className="item-title floating-label">My name</div>
                                             <div className={`item-input item-input-field ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
                                                 <input type="text" placeholder="" className={`${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}
                                                     name='name'
@@ -174,17 +177,14 @@ class NewPaymentPage extends Component {
                                         <div className="item-media"><i className="icon icon-form-gender"></i></div>
                                         <div className={`item-inner ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">分类</div>
-                                            <div className={`item-input item-input-field ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}>
-                                                <select className={`${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}
-                                                    name='category'
-                                                    value={this.state.payment.category.id}
-                                                    onFocus={() => {this.setState({focusInput: 'inputCategory'})}}
-                                                    onBlur={() => {this.setState({focusInput: null})}}
-                                                    onChange={this.handleInputChange}>
-                                                    <option value=''> </option>
-                                                    <option value='1'>分类1</option>
-                                                    <option value='2'>分类2</option>
-                                                </select>
+                                            <div className={`item-input item-input-field ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}
+                                                 onClick={()=>{
+                                                    this.setState({focusInput: 'inputCategory'});
+                                                    this.setState({showCategoriesPopup: true});
+                                                        return;
+                                                    }}>
+                                                <div className={`${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}
+                                                    style={{fontSize: '16px', height: '36px', paddingTop: '7px'}}>{this.state.payment.category.name}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -226,6 +226,19 @@ class NewPaymentPage extends Component {
                     </div>
                   </div>
                 </div>
+                <CategoriesPopup show={this.state.showCategoriesPopup}
+                    onClose={(checkedCategory) => {
+                        this.handleInputChange({
+                            target: {
+                                name: 'category',
+                                category: checkedCategory
+                            }
+                        });
+                        this.setState({
+                            focusInput: null,
+                            showCategoriesPopup: false
+                        });
+                    }}/>
             </div>
         );
     }

@@ -2,7 +2,7 @@ div#root, div.App{
     height: 100%;
 }
 
-/*.panel, .badge 有冲突*/
+/*.panel, .badge, label 有冲突*/
 
 .f7-badge {
     font-size: 10px; 
@@ -13,4 +13,8 @@ div#root, div.App{
     padding: 1px 6px;
     box-sizing: border-box;
     vertical-align: middle;
+}
+
+label{
+    font-weight: normal;
 }
