@@ -52,10 +52,10 @@ class NewPaymentPage extends Component {
         console.log('点击了完成')
     }
     render() {
-        let inputNameFocusStateClass, inputAmountFocusStateClass, inputVaultFocusStateClass,
-            inputCategoryFocusStateClass, inputDateFocusStateClass, inputRemarkFocusStateClass = null;
-        let inputNameNotEmptyStateClass, inputAmountNotEmptyStateClass, inputVaultNotEmptyStateClass,
-            inputCategoryNotEmptyStateClass, inputDateNotEmptyStateClass, inputRemarkNotEmptyStateClass = null;
+        let inputNameFocusStateClass = null, inputAmountFocusStateClass = null, inputVaultFocusStateClass = null,
+            inputCategoryFocusStateClass = null, inputDateFocusStateClass = null, inputRemarkFocusStateClass = null;
+        let inputNameNotEmptyStateClass = null, inputAmountNotEmptyStateClass = null, inputVaultNotEmptyStateClass = null,
+            inputCategoryNotEmptyStateClass = null, inputDateNotEmptyStateClass = null, inputRemarkNotEmptyStateClass = null;
         if(this.state.focusInput === 'inputName'){
             inputNameFocusStateClass = 'focus-state';
         }else{
