@@ -49,7 +49,10 @@ class NewPaymentPage extends Component {
         this.setState({payment: payment});
     }
     handleComplete(){
-        console.log('点击了完成')
+        console.log(this.state.payment)
+    }
+    componentDidMount(){
+        this.refs.name.focus();
     }
     render() {
         let inputNameFocusStateClass = null, inputAmountFocusStateClass = null, inputVaultFocusStateClass = null,
@@ -127,7 +130,7 @@ class NewPaymentPage extends Component {
                                             <div className="item-title floating-label">My name</div>
                                             <div className={`item-input item-input-field ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
                                                 <input type="text" placeholder="" className={`${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}
-                                                    name='name'
+                                                    name='name' ref='name'
                                                     value={this.state.payment.name}
                                                     onFocus={() => {this.setState({focusInput: 'inputName'})}}
                                                     onBlur={() => {this.setState({focusInput: null})}}

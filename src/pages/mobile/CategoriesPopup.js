@@ -14,7 +14,7 @@ class CategoriesPopup extends Component {
             },
             checkedCategory: {id: 1, name: 'Books', checked: true},
             selectedTab: 'payout',
-            showNewPaymentPrompt: true
+            showNewPaymentPrompt: false
         };
         this.handleClose = this.handleClose.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
@@ -100,7 +100,7 @@ class CategoriesPopup extends Component {
                                     </div>
                                     <div className="center">分类</div>
                                     <div className="right">
-                                        <a className="link" onClick={() => {prompt();}}><i className="icon icon-plus"></i></a>
+                                        <a className="link" onClick={() => this.setState({showNewPaymentPrompt: true})}><i className="icon icon-plus"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,13 @@ class CategoriesPopup extends Component {
                         </div>
                     </div>
                 </div>
-                <Prompt show={this.state.showNewPaymentPrompt} />
+                <Prompt show={this.state.showNewPaymentPrompt}
+                    title='添加新分类' text="请输入分类名称"
+                    onCancel={() => {this.setState({showNewPaymentPrompt: false})}}
+                    onOk={(value) => {
+                        this.setState({showNewPaymentPrompt: false});
+                        alert(value);
+                    }} />
             </div>
         );
     }
