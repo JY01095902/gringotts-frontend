@@ -1,6 +1,18 @@
 /*
 
 state: {
+    application:{
+        prompt: {
+            show: false,
+            config: {
+                title: '',
+                text: '',
+                onOk: (value) => (value){ ... },
+                onCancel: () => (){ ... }
+            }
+        },
+        ...
+    }
     vaults: {
         status: STATUS,
         error: {
@@ -58,7 +70,9 @@ state: {
 
 import { combineReducers } from 'redux';
 import vaultsReducer from './vaults';
+import applicationReducer from './application';
 
 export default combineReducers({
-    vaults: vaultsReducer
+    vaults: vaultsReducer,
+    application: applicationReducer
 });

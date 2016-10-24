@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ApplicationContainer from '../../containers/mobile/ApplicationContainer';
 import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.min.css';
 import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.colors.min.css';
 import '../../vendors/Framework7-1.4.2/kitchen-sink-material/css/kitchen-sink.css';
@@ -101,6 +102,7 @@ class MainPage extends Component {
                     </div>
                 </div>
                 {this.props.children}
+                <ApplicationContainer />
             </div>
         );
     }
