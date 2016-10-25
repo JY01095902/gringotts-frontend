@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Overlay from './Overlay';
 
 class Prompt extends Component {
     constructor(props){
@@ -46,32 +45,29 @@ class Prompt extends Component {
             }.bind(this), 300);
         }
         return (
-            <div>
-                <Overlay show={show} />
-                <div className={`modal ${show ? 'modal-in' : 'modal-out'}  ${this.state.focus ? 'focus-state' : ''}`} 
-                    style={{
-                        display: 'block', 
-                        marginTop: '-107px',
-                        top: '50%',
-                        bottom: 'initial',
-                        left: '50%',
-                        right: 'initial',
-                        zIndex: show ? '13500': '0'
-                    }}>
-                    <div className="modal-inner">
-                        <div className="modal-title">{title}</div>
-                        <div className="modal-text">{text}</div>
-                        <div className="input-field">
-                            <input type="text" className="modal-text-input" ref='input' value={this.state.value}
-                                onChange={this.handleValueChange}
-                                onFocus={() => this.setState({focus: true})}
-                                onBlur={() => this.setState({focus: false})}/>
-                        </div>
+            <div className={`modal ${show ? 'modal-in' : 'modal-out'}  ${this.state.focus ? 'focus-state' : ''}`} 
+                style={{
+                    display: 'block', 
+                    marginTop: '-107px',
+                    top: '50%',
+                    bottom: 'initial',
+                    left: '50%',
+                    right: 'initial',
+                    zIndex: show ? '13500': '0'
+                }}>
+                <div className="modal-inner">
+                    <div className="modal-title">{title}</div>
+                    <div className="modal-text">{text}</div>
+                    <div className="input-field">
+                        <input type="text" className="modal-text-input" ref='input' value={this.state.value}
+                            onChange={this.handleValueChange}
+                            onFocus={() => this.setState({focus: true})}
+                            onBlur={() => this.setState({focus: false})}/>
                     </div>
-                    <div className="modal-buttons modal-buttons-2 ">
-                        <span className="modal-button" onClick={this.handleCancelClick}>取消</span>
-                        <span className="modal-button modal-button-bold" onClick={this.handleOkClick}>确定</span>
-                    </div>
+                </div>
+                <div className="modal-buttons modal-buttons-2 ">
+                    <span className="modal-button" onClick={this.handleCancelClick}>取消</span>
+                    <span className="modal-button modal-button-bold" onClick={this.handleOkClick}>确定</span>
                 </div>
             </div>
         )

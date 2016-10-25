@@ -10,7 +10,6 @@ const applicationReducer = handleActions({
         });
     },
     CLOSE_PROMPT: (state, action) => {
-        console.log('applicationReducer',action.payload  )
         return Object.assign({}, state, { 
             prompt: {
                 show: false,

@@ -103,7 +103,7 @@ class CategoriesContainer extends Component {
                                     <div className="right">
                                         <a className="link" onClick={() => {showPrompt({
                                             title: '添加新分类',
-                                            text: '',
+                                            text: '请输入分类名称',
                                             onOk: (value) => alert(value),
                                             onCancel: () => alert('cancel')
                                         });
