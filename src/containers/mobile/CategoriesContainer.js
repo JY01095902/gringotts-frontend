@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {showPrompt} from '../../actions/application';
+import {addCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
 
 class CategoriesContainer extends Component {
@@ -14,7 +15,7 @@ class CategoriesContainer extends Component {
                 5: {id: 5, name: 'Income', type: 'income', checked: false}
             },
             checkedCategory: {id: 1, name: 'Books', checked: true},
-            selectedTab: 'payout'
+            categoryType: 'payout'
         };
         this.handleClose = this.handleClose.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
@@ -49,11 +50,10 @@ class CategoriesContainer extends Component {
         }).bind(this), 500);
     }
     handleTabSelect(event){
-        const tabName = event.target.dataset.tabName;
-        this.setState({ selectedTab: tabName });
+        this.setState({ categoryType: event.target.dataset.categoryType });
     }
     render() {
-        const {showPrompt} = this.props;
+        const {showPrompt, addCategory, categories} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
         for(let key in this.state.categories){
@@ -80,10 +80,10 @@ class CategoriesContainer extends Component {
         //Tab
         let payoutTabActiveClass = null, incomeTabActiveClass = null;
         let tabbarTranslate3dX = '0%', tabTranslate3dX = '0px';
-        if(this.state.selectedTab === 'payout'){ 
+        if(this.state.categoryType === 'payout'){ 
             payoutTabActiveClass = 'active'; 
         };
-        if(this.state.selectedTab === 'income'){ 
+        if(this.state.categoryType === 'income'){ 
             incomeTabActiveClass = 'active'; 
             tabbarTranslate3dX = '100%';
             tabTranslate3dX = '-375px';
@@ -104,7 +104,12 @@ class CategoriesContainer extends Component {
                                         <a className="link" onClick={() => {showPrompt({
                                             title: '添加新分类',
                                             text: '请输入分类名称',
-                                            onOk: (value) => alert(value),
+                                            onOk: (value) => {
+                                                addCategory({
+                                                    name: value,
+                                                    type: this.state.categoryType
+                                                });
+                                            },
                                             onCancel: () => alert('cancel')
                                         });
                                     }}><i className="icon icon-plus"></i></a>
@@ -114,9 +119,9 @@ class CategoriesContainer extends Component {
                             <div className="toolbar tabbar">
                                 <div className="toolbar-inner">
                                     <a className={`tab-link ${payoutTabActiveClass}`} style={{textDecoration: 'none'}}
-                                        onClick={this.handleTabSelect} data-tab-name='payout'>Payout</a>
+                                        onClick={this.handleTabSelect} data-category-type='payout'>Payout</a>
                                     <a className={`tab-link ${incomeTabActiveClass}`} style={{textDecoration: 'none'}}
-                                        onClick={this.handleTabSelect} data-tab-name='income'>Income</a>
+                                        onClick={this.handleTabSelect} data-category-type='income'>Income</a>
                                     <span className="tab-link-highlight" style={{width: '50%', transform: `translate3d(${tabbarTranslate3dX}, 0px, 0px)`}}></span>
                                 </div>
                             </div>
@@ -158,7 +163,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        showPrompt: (config) => dispatch(showPrompt(config))
+        showPrompt: (config) => dispatch(showPrompt(config)),
+        addCategory: (category) => dispatch(addCategory(category))
     };
 }
 
