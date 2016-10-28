@@ -27,7 +27,7 @@ export default {
             });
         })
     },
-    fetchVaults: (successCallback, failureCallback) => {
+    fetchCategories: (successCallback, failureCallback) => {
         console.log('正在获取分类...');
         const headers = {
             'Content-Type': 'application/json', 
@@ -36,7 +36,7 @@ export default {
         axios.get(`${serverRoots.gringotts}/categories`, { headers: headers })
         .then(function(response) {
             successCallback(response.data);
-            console.log('添加分类成功.');
+            console.log('获取分类成功.');
         })
         .catch(function(error) {
             console.log('获取分类失败!', error);

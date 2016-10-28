@@ -56,15 +56,10 @@ state: {
         },
         items: {
             '58100a9e39426832281a8020': {
-                "tenant_id": 2,
-                "owner_user_id": 3,
-                "creator_user_id": 3,
-                "creation_time_utc": "2016-10-26 01:45:02 UTC",
-                "last_modifier_user_id": null,
-                "last_modification_time_utc": null,
                 "name": "AAA",
                 "type": "payout",
-                "id": "58100a9e39426832281a8020"
+                "id": "58100a9e39426832281a8020",
+                checked: false
             }
         }
     },
@@ -83,10 +78,12 @@ state: {
 */
 
 import { combineReducers } from 'redux';
-import vaultsReducer from './vaults';
 import applicationReducer from './application';
+import vaultsReducer from './vaults';
+import categoriesReducer from './categories';
 
 export default combineReducers({
+    application: applicationReducer,
     vaults: vaultsReducer,
-    application: applicationReducer
+    categories: categoriesReducer
 });

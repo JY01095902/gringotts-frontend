@@ -1,52 +1,43 @@
 import React, { Component } from 'react';
 import {showPrompt} from '../../actions/application';
-import {addCategory} from '../../actions/categories';
+import {addCategory, fetchCategories, checkCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
+
+const EmptyCategoriesPanel = ({ categoryType }) => (
+    <div style={{color: '#777', textAlign: 'center'}}>
+        <p style={{color: '#c7c7cc', fontSize: '64px', textAlign: 'center'}}>:-(</p>
+        <p>抱歉，您还没有添加过任何的{categoryType === 'payment'? '支出': '收入'}分类；</p>
+        <p>点击右上角的 “+” 号，添加一个吧。</p>
+    </div>
+);
 
 class CategoriesContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            categories: {
-                1: {id: 1, name: 'Books', type: 'payout', checked: true},
-                2: {id: 2, name: 'Movies', type: 'payout', checked: false},
-                3: {id: 3, name: 'Food', type: 'payout', checked: false},
-                4: {id: 4, name: 'Drinks', type: 'payout', checked: false},
-                5: {id: 5, name: 'Income', type: 'income', checked: false}
-            },
-            checkedCategory: {id: 1, name: 'Books', checked: true},
             categoryType: 'payout'
         };
         this.handleClose = this.handleClose.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
         this.handleTabSelect = this.handleTabSelect.bind(this);
     }
+    componentDidMount(){
+        this.props.fetchCategories();
+    }
     handleClose(){
         const {onClose} = this.props;
         onClose(this.state.checkedCategory);
     }
     handleCheck(id){
-        let categories = this.state.categories;
-        let checkedCategory;
-        for(let key in categories){
-            if(categories[key]){
-                const category = categories[key];
-                if(category.id === id){
-                    category.checked = true;
-                    checkedCategory = category;
-                }else{
-                    category.checked = false;
-                }
-            }
-        }
+        const {categories, checkCategory} = this.props;
+        checkCategory(id);
         this.setState({
-            categories: categories,
-            checkedCategory: checkedCategory
+            checkedCategory: categories.items[id]
         });
         
         setTimeout((function(){
             const {onClose} = this.props;
-            onClose(checkedCategory);
+            onClose(this.state.checkedCategory);
         }).bind(this), 500);
     }
     handleTabSelect(event){
@@ -56,12 +47,12 @@ class CategoriesContainer extends Component {
         const {showPrompt, addCategory, categories} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
-        for(let key in this.state.categories){
-            if(this.state.categories[key]){
-                const category = this.state.categories[key];
+        for(let key in categories.items){
+            if(categories.items[key]){
+                const category = categories.items[key];
                 const Category = <li key={key}>
                                         <label className="label-radio item-content">
-                                            <input type="radio" name="ks-radio" value="1" checked={category.checked}
+                                            <input type="radio" name="ks-radio" checked={category.checked}
                                                 onChange={() => this.handleCheck(category.id)}/>
                                             <div className="item-media"><i className="icon icon-form-radio"></i></div>
                                             <div className="item-inner">
@@ -75,6 +66,27 @@ class CategoriesContainer extends Component {
                     IncomeCategories.push(Category);
                 }
             }
+        }
+
+        let PayoutTab = null, IncomeTab = null;
+        if(PayoutCategories.length > 0){
+            PayoutTab = <div className="list-block">
+                            <ul>
+                                {PayoutCategories}
+                            </ul>
+                        </div>;
+        }else{
+            PayoutTab = <EmptyCategoriesPanel categoryType='payment' />;
+        }
+
+        if(IncomeCategories.length > 0){
+            IncomeTab = <div className="list-block">
+                            <ul>
+                                {IncomeCategories}
+                            </ul>
+                        </div>;
+        }else{
+            IncomeTab = <EmptyCategoriesPanel categoryType='income' />;
         }
 
         //Tab
@@ -109,8 +121,7 @@ class CategoriesContainer extends Component {
                                                     name: value,
                                                     type: this.state.categoryType
                                                 });
-                                            },
-                                            onCancel: () => alert('cancel')
+                                            }
                                         });
                                     }}><i className="icon icon-plus"></i></a>
                                     </div>
@@ -129,20 +140,12 @@ class CategoriesContainer extends Component {
                                 <div className="tabs swiper-wrapper" style={{transform: `translate3d(${tabTranslate3dX}, 0px, 0px)`, transitionDuration: '0ms'}}>
                                     <div id="tab1" className="page-content tab swiper-slide" style={{width: '375px'}}>
                                         <div className="page-content">
-                                            <div className="list-block">
-                                                <ul>
-                                                    {PayoutCategories}
-                                                </ul>
-                                            </div>
+                                            {PayoutTab}
                                         </div>
                                     </div>
                                     <div id="tab2" className="page-content tab swiper-slide swiper-slide-prev" style={{width: '375px'}}>
                                         <div className="page-content">
-                                            <div className="list-block">
-                                                <ul>
-                                                    {IncomeCategories}
-                                                </ul>
-                                            </div>
+                                            {IncomeTab}
                                         </div>
                                     </div>
                                 </div>
@@ -157,14 +160,16 @@ class CategoriesContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        
+        categories: state.categories
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         showPrompt: (config) => dispatch(showPrompt(config)),
-        addCategory: (category) => dispatch(addCategory(category))
+        addCategory: (category) => dispatch(addCategory(category)),
+        fetchCategories: () => dispatch(fetchCategories()),
+        checkCategory: (id) => dispatch(checkCategory(id))
     };
 }
 

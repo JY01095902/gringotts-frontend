@@ -231,12 +231,14 @@ class NewPaymentPage extends Component {
                 </div>
                 <CategoriesPopup show={this.state.showCategoriesPopup}
                     onClose={(checkedCategory) => {
-                        this.handleInputChange({
-                            target: {
-                                name: 'category',
-                                category: checkedCategory
-                            }
-                        });
+                        if(checkedCategory){
+                            this.handleInputChange({
+                                target: {
+                                    name: 'category',
+                                    category: checkedCategory
+                                }
+                            });
+                        }
                         this.setState({
                             focusInput: null,
                             showCategoriesPopup: false

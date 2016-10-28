@@ -47,13 +47,16 @@ const categorysReducer = handleActions({
         });
     },
     CHECK_CATEGORY: (state, action) => {
-        let category = state.items[action.payload];
-        category.checked = true;
-        const items = Object.assign({}, state.items, category); 
-        
+        for(let key in state.items){
+            if(key === action.payload){
+                state.items[key].checked = true;
+            }else{
+                state.items[key].checked = false;
+            }
+        }
+
         return Object.assign({}, state, {
-            status: action.type,
-            items: items
+            status: action.type
         });
     }
 }, {});
