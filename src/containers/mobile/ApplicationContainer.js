@@ -15,11 +15,15 @@ class ApplicationContainer extends Component {
                     title={prompt.config.title} text={prompt.config.text}
                     onCancel={() => {
                         closePrompt();
-                        prompt.config.onCancel();
+                        if(prompt.config.onCancel){
+                            prompt.config.onCancel();
+                        }
                     }}
                     onOk={(value) => {
                         closePrompt();
-                        prompt.config.onOk(value);
+                        if(prompt.config.onO){
+                            prompt.config.onOk(value);
+                        }
                     }} />
             </div>
         );

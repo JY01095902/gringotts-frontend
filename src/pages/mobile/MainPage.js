@@ -94,6 +94,16 @@ class MainPage extends Component {
                                                     </div>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href='#/mobile/test' className="item-link close-panel">
+                                                    <div className="item-content">
+                                                        <div className="item-media"><i className="icon fa fa-user fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-inner">
+                                                            <div className="item-title">测试</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

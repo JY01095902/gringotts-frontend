@@ -10,6 +10,7 @@ import './index.css';
 import MobileMainPage from './pages/mobile/MainPage';
 import MobileHomePage from './pages/mobile/HomePage';
 import MobileNewPaymentPage from './pages/mobile/NewPaymentPage';
+import MobileTestPage from './pages/mobile/TestPage';
 import TabletMainPage from './pages/tablet/MainPage';
 import TabletHomePage from './pages/tablet/HomePage';
 import DesktopMainPage from './pages/desktop/MainPage';
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Route path='mobile' component={MobileMainPage}>
                     <IndexRoute component={MobileHomePage}/>
                     <Route path='newPayment' component={MobileNewPaymentPage}/>
+                    <Route path='test' component={MobileTestPage}/>
                 </Route>
                 <Route path='tablet' component={TabletMainPage}>
                     <IndexRoute component={TabletHomePage}/>
