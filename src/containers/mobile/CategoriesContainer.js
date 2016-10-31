@@ -50,15 +50,30 @@ class CategoriesContainer extends Component {
         for(let key in categories.items){
             if(categories.items[key]){
                 const category = categories.items[key];
-                const Category = <li key={key}>
-                                        <label className="label-radio item-content">
-                                            <input type="radio" name="ks-radio" checked={category.checked}
-                                                onChange={() => this.handleCheck(category.id)}/>
-                                            <div className="item-media"><i className="icon icon-form-radio"></i></div>
-                                            <div className="item-inner">
-                                                <div className="item-title">{category.name}</div>
-                                            </div>
-                                        </label>
+                // const Category = <li key={key}>
+                //                         <label className="label-radio item-content">
+                //                             <input type="radio" name="ks-radio" checked={category.checked}
+                //                                 onChange={() => this.handleCheck(category.id)}/>
+                //                             <div className="item-media"><i className="icon icon-form-radio"></i></div>
+                //                             <div className="item-inner">
+                //                                 <div className="item-title">{category.name}</div>
+                //                             </div>
+                //                         </label>
+                //                     </li>;
+                const Category = <li key={key} className="swipeout transitioning">
+                                        <div className="swipeout-content">
+                                            <label className="label-radio item-content">
+                                                <input type="radio" name="ks-radio" checked={category.checked}
+                                                    onChange={() => this.handleCheck(category.id)}/>
+                                                <div className="item-media"><i className="icon icon-form-radio"></i></div>
+                                                <div className="item-inner">
+                                                    <div className="item-title">{category.name}</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div className="swipeout-actions-right">
+                                            <a href="#" className="swipeout-delete">Delete</a>
+                                        </div>
                                     </li>;
                 if(category.type === 'payout'){
                     PayoutCategories.push(Category);
