@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {showPrompt} from '../../actions/application';
-import {addCategory, fetchCategories, checkCategory} from '../../actions/categories';
+import {checkCategory, addCategory, fetchCategories, deleteCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
 
 const EmptyCategoriesPanel = ({ categoryType }) => (
@@ -26,15 +26,16 @@ class CategoriesContainer extends Component {
     }
     handleClose(){
         const {onClose} = this.props;
-        onClose(this.state.checkedCategory);
+        if(onClose){
+            onClose(this.state.checkedCategory);
+        }
     }
-    handleCheck(id){
+    handleCheck(id){   
         const {categories, checkCategory} = this.props;
         checkCategory(id);
         this.setState({
             checkedCategory: categories.items[id]
         });
-        
         setTimeout((function(){
             const {onClose} = this.props;
             onClose(this.state.checkedCategory);
@@ -44,37 +45,32 @@ class CategoriesContainer extends Component {
         this.setState({ categoryType: event.target.dataset.categoryType });
     }
     render() {
-        const {showPrompt, addCategory, categories} = this.props;
+        const {showPrompt, addCategory, deleteCategory, categories} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
         for(let key in categories.items){
             if(categories.items[key]){
                 const category = categories.items[key];
-                // const Category = <li key={key}>
-                //                         <label className="label-radio item-content">
-                //                             <input type="radio" name="ks-radio" checked={category.checked}
-                //                                 onChange={() => this.handleCheck(category.id)}/>
-                //                             <div className="item-media"><i className="icon icon-form-radio"></i></div>
-                //                             <div className="item-inner">
-                //                                 <div className="item-title">{category.name}</div>
-                //                             </div>
-                //                         </label>
-                //                     </li>;
-                const Category = <li key={key} className="swipeout transitioning">
-                                        <div className="swipeout-content">
-                                            <label className="label-radio item-content">
-                                                <input type="radio" name="ks-radio" checked={category.checked}
-                                                    onChange={() => this.handleCheck(category.id)}/>
-                                                <div className="item-media"><i className="icon icon-form-radio"></i></div>
-                                                <div className="item-inner">
-                                                    <div className="item-title">{category.name}</div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div className="swipeout-actions-right">
-                                            <a href="#" className="swipeout-delete">Delete</a>
-                                        </div>
-                                    </li>;
+                const Category = <li key={key} className="swipeout">
+                                    <div className="swipeout-content" onClick={() => this.handleCheck(category.id)}>
+                                        <label className="label-radio item-content" style={{marginBottom: 0}}>
+                                            <input type="radio" name="ks-radio" checked={category.checked}/>
+                                            <div className="item-media"><i className="icon icon-form-radio"></i></div>
+                                            <div className="item-inner">
+                                                <div className="item-title">{category.name}</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div className="swipeout-actions-right">
+                                        <a>修改</a>
+                                        <a style={{backgroundColor: '#f44336'}}
+                                            onClick={() => {
+                                                if(deleteCategory){
+                                                    deleteCategory(category.id)
+                                                }}
+                                            }>删除</a>
+                                    </div>
+                                </li>;
                 if(category.type === 'payout'){
                     PayoutCategories.push(Category);
                 }else{
@@ -153,12 +149,12 @@ class CategoriesContainer extends Component {
                             </div>
                             <div className="tabs-swipeable-wrap swiper-container swiper-container-horizontal">
                                 <div className="tabs swiper-wrapper" style={{transform: `translate3d(${tabTranslate3dX}, 0px, 0px)`, transitionDuration: '0ms'}}>
-                                    <div id="tab1" className="page-content tab swiper-slide" style={{width: '375px'}}>
+                                    <div id="payoutTab" className="page-content tab swiper-slide" style={{width: '375px'}}>
                                         <div className="page-content">
                                             {PayoutTab}
                                         </div>
                                     </div>
-                                    <div id="tab2" className="page-content tab swiper-slide swiper-slide-prev" style={{width: '375px'}}>
+                                    <div id="incomeTab" className="page-content tab swiper-slide swiper-slide-prev" style={{width: '375px'}}>
                                         <div className="page-content">
                                             {IncomeTab}
                                         </div>
@@ -182,9 +178,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         showPrompt: (config) => dispatch(showPrompt(config)),
+        checkCategory: (id) => dispatch(checkCategory(id)),
         addCategory: (category) => dispatch(addCategory(category)),
         fetchCategories: () => dispatch(fetchCategories()),
-        checkCategory: (id) => dispatch(checkCategory(id))
+        deleteCategory: (id) => dispatch(deleteCategory(id))
     };
 }
 

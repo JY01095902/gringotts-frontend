@@ -46,6 +46,24 @@ const categorysReducer = handleActions({
             error: action.payload
         });
     },
+    DELETE_CATEGORY_REQUEST: (state, action) => {
+        return Object.assign({}, state, { status: action.type });
+    },
+    DELETE_CATEGORY_SUCCESS: (state, action) => {
+        let items = state.items;
+        delete items[action.payload];
+
+        return Object.assign({}, state, {
+            status: action.type,
+            items: items
+        });
+    },
+    DELETE_CATEGORY_FAILURE: (state, action) => {
+        return Object.assign({}, state, {
+            status: action.type,
+            error: action.payload
+        });
+    },
     CHECK_CATEGORY: (state, action) => {
         for(let key in state.items){
             if(key === action.payload){

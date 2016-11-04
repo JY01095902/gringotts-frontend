@@ -35,7 +35,7 @@ export default {
         };
         axios.get(`${serverRoots.gringotts}/categories`, { headers: headers })
         .then(function(response) {
-            successCallback(response.data);
+            successCallback(response.data.value);
             console.log('获取分类成功.');
         })
         .catch(function(error) {
@@ -48,6 +48,31 @@ export default {
             }
             failureCallback({
                 title: '获取分类失败',
+                message: message
+            });
+        })
+    },
+    deleteCategory: (id, successCallback, failureCallback) => {
+        console.log('正在删除分类...');
+        const headers = {
+            'Content-Type': 'application/json', 
+            'Accept': 'application/json'
+        };
+        axios.delete(`${serverRoots.gringotts}/categories/${id}`, { headers: headers })
+        .then(function(response) {
+            successCallback();
+            console.log('删除分类成功.');
+        })
+        .catch(function(error) {
+            console.log('删除分类失败!', error);
+            let message = null;
+            if(error.response === undefined){
+                message = error.message;
+            }else{
+                message = error.response.data.error.message;
+            }
+            failureCallback({
+                title: '删除分类失败',
                 message: message
             });
         })

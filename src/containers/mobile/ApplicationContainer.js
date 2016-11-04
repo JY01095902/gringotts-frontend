@@ -21,7 +21,7 @@ class ApplicationContainer extends Component {
                     }}
                     onOk={(value) => {
                         closePrompt();
-                        if(prompt.config.onO){
+                        if(prompt.config.onOk){
                             prompt.config.onOk(value);
                         }
                     }} />
