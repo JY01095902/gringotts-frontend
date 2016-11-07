@@ -45,6 +45,20 @@ class CategoriesContainer extends Component {
     handleTabSelect(event){
         this.setState({ categoryType: event.target.dataset.categoryType });
     }
+    swipeoutClose(){
+        const liItem = document.getElementsByClassName('swipeout-opened')[0];
+        const liItemClassName = arrayRemove(arrayRemove(liItem.className.split(' '), 'swipeout-opened'), 'transitioning');
+        liItem.className = liItemClassName.join(' ');
+
+        const divSwipeoutContent = liItem.childNodes[0];
+        divSwipeoutContent.style.transform = null;
+
+        const divActions = document.getElementsByClassName('swipeout-actions-opened')[0];
+        const divActionsClassName = arrayRemove(divActions.className.split(' '), 'swipeout-actions-opened');
+        divActions.className = divActionsClassName.join(' ');
+        divActions.childNodes[0].style.transform = null;
+        divActions.childNodes[1].style.transform = null;
+    }
     render() {
         const {showPrompt, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
@@ -66,22 +80,19 @@ class CategoriesContainer extends Component {
                                         <a onClick={() => {showPrompt({
                                                 title: '修改分类名称',
                                                 text: '请输入分类名称',
+                                                value: category.name,
+                                                helpBlock: {
+                                                    text: '修改后的分类名称不会适用到以前的消费记录中',
+                                                    style: {color: '#f44336'}
+                                                },
                                                 onOk: (value) => {
-                                                    if(modifyCategoryName){
+                                                    if(modifyCategoryName && value.length > 0){
                                                         modifyCategoryName(category.id, value);
-                                                        const liItem = document.getElementsByClassName('swipeout-opened')[0];
-                                                        const liItemClassName = arrayRemove(arrayRemove(liItem.className.split(' '), 'swipeout-opened'), 'transitioning');
-                                                        liItem.className = liItemClassName.join(' ');
-
-                                                        const divSwipeoutContent = liItem.childNodes[0];
-                                                        divSwipeoutContent.style.transform = null;
-
-                                                        const divActions = document.getElementsByClassName('swipeout-actions-opened')[0];
-                                                        const divActionsClassName = arrayRemove(divActions.className.split(' '), 'swipeout-actions-opened');
-                                                        divActions.className = divActionsClassName.join(' ');
-                                                        divActions.childNodes[0].style.transform = null;
-                                                        divActions.childNodes[1].style.transform = null;
                                                     }
+                                                    this.swipeoutClose();
+                                                },
+                                                onCancel: () => {
+                                                    this.swipeoutClose();
                                                 }
                                             });
                                         }}>修改</a>

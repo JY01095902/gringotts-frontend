@@ -5,7 +5,8 @@ class Prompt extends Component {
         super(props);
         this.state = {
             focus: false,
-            value: ''
+            value: '',
+            hasBeenShown: false
         };
         this.handleCancelClick = this.handleCancelClick.bind(this);
         this.handleOkClick = this.handleOkClick.bind(this);
@@ -15,6 +16,10 @@ class Prompt extends Component {
     componentWillUpdate(nextProps, nextState){
         if(nextProps.show && !this.state.focus){
             nextState.focus = true;
+        }
+        if(nextProps.value && !this.state.hasBeenShown){
+            nextState.value = nextProps.value;
+            nextState.hasBeenShown = true;
         }
     }
     handleCancelClick(event){
@@ -35,15 +40,20 @@ class Prompt extends Component {
         this.setState({value: event.target.value});
     }
     handleClose(){
-        this.setState({value: ''});
+        this.setState({
+            value: '', 
+            hasBeenShown: false
+        });
     }
     render() {
-        const {show, title, text} = this.props;
+        const {show, title, text, helpBlock = {}} = this.props;
         if(show && this.state.focus){
             setTimeout(function() {
                 this.refs.input.focus();
             }.bind(this), 300);
         }
+        const helpBlockStyle = Object.assign({}, {marginTop: '5px', fontSize: '14px'}, helpBlock.style);
+
         return (
             <div className={`modal ${show ? 'modal-in' : 'modal-out'}  ${this.state.focus ? 'focus-state' : ''}`} 
                 style={{
@@ -64,6 +74,7 @@ class Prompt extends Component {
                             onFocus={() => this.setState({focus: true})}
                             onBlur={() => this.setState({focus: false})}/>
                     </div>
+                    <div className="modal-text" style={helpBlockStyle}>{helpBlock.text}</div>
                 </div>
                 <div className="modal-buttons modal-buttons-2 ">
                     <span className="modal-button" onClick={this.handleCancelClick}>取消</span>

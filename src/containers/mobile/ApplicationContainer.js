@@ -12,7 +12,10 @@ class ApplicationContainer extends Component {
             <div>
                 <Overlay show={prompt.show} />
                 <Prompt show={prompt.show}
-                    title={prompt.config.title} text={prompt.config.text}
+                    title={prompt.config.title} 
+                    text={prompt.config.text}
+                    value={prompt.config.value}
+                    helpBlock={prompt.config.helpBlock}
                     onCancel={() => {
                         closePrompt();
                         if(prompt.config.onCancel){
