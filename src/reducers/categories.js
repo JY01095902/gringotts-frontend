@@ -1,6 +1,19 @@
 import { handleActions } from 'redux-actions';
 
 const categorysReducer = handleActions({
+    CHECK_CATEGORY: (state, action) => {
+        for(let key in state.items){
+            if(key === action.payload){
+                state.items[key].checked = true;
+            }else{
+                state.items[key].checked = false;
+            }
+        }
+
+        return Object.assign({}, state, {
+            status: action.type
+        });
+    },
     ADD_CATEGORY_REQUEST: (state, action) => {
         return Object.assign({}, state, { status: action.type });
     },
@@ -47,7 +60,10 @@ const categorysReducer = handleActions({
         });
     },
     DELETE_CATEGORY_REQUEST: (state, action) => {
-        return Object.assign({}, state, { status: action.type });
+        return Object.assign({}, state, {
+            status: action.type,
+            error: action.payload
+        });
     },
     DELETE_CATEGORY_SUCCESS: (state, action) => {
         let items = state.items;
@@ -64,17 +80,22 @@ const categorysReducer = handleActions({
             error: action.payload
         });
     },
-    CHECK_CATEGORY: (state, action) => {
-        for(let key in state.items){
-            if(key === action.payload){
-                state.items[key].checked = true;
-            }else{
-                state.items[key].checked = false;
-            }
-        }
+    PATCH_CATEGORY_REQUEST: (state, action) => {
+        return Object.assign({}, state, { status: action.type });
+    },
+    PATCH_CATEGORY_SUCCESS: (state, action) => {
+        let items = state.items;
+        items[action.payload.id] = Object.assign({}, items[action.payload.id], action.payload.category);
 
         return Object.assign({}, state, {
-            status: action.type
+            status: action.type,
+            items: items
+        });
+    },
+    PATCH_CATEGORY_FAILURE: (state, action) => {
+        return Object.assign({}, state, {
+            status: action.type,
+            error: action.payload
         });
     }
 }, {});

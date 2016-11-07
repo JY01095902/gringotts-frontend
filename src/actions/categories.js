@@ -1,4 +1,5 @@
 import { 
+    CHECK_CATEGORY,
     ADD_CATEGORY_REQUEST,
     ADD_CATEGORY_SUCCESS,
     ADD_CATEGORY_FAILURE,
@@ -8,11 +9,15 @@ import {
     DELETE_CATEGORY_REQUEST,
     DELETE_CATEGORY_SUCCESS,
     DELETE_CATEGORY_FAILURE,
-    CHECK_CATEGORY
+    PATCH_CATEGORY_REQUEST,
+    PATCH_CATEGORY_SUCCESS,
+    PATCH_CATEGORY_FAILURE
 } from '../constants/ActionTypes';
 import categories from '../apis/categories';
 import { createAction } from 'redux-actions';
 import { account } from '../session';
+
+let action_check_category = createAction(CHECK_CATEGORY);
 
 let action_add_category_request = createAction(ADD_CATEGORY_REQUEST);
 let action_add_category_success = createAction(ADD_CATEGORY_SUCCESS);
@@ -26,7 +31,15 @@ let action_delete_category_request = createAction(DELETE_CATEGORY_REQUEST);
 let action_delete_category_success = createAction(DELETE_CATEGORY_SUCCESS);
 let action_delete_category_failure = createAction(DELETE_CATEGORY_FAILURE);
 
-let action_check_category = createAction(CHECK_CATEGORY);
+let action_patch_category_request = createAction(PATCH_CATEGORY_REQUEST);
+let action_patch_category_success = createAction(PATCH_CATEGORY_SUCCESS);
+let action_patch_category_failure = createAction(PATCH_CATEGORY_FAILURE);
+
+export function checkCategory(id){
+    return dispatch => {
+        dispatch(action_check_category(id));
+    }
+}
 
 export function addCategory(category){
     category.tenant_id = account.tenant_id;
@@ -72,8 +85,17 @@ export function deleteCategory(id){
     }
 }
 
-export function checkCategory(id){
+export function patchCategory(id, category){
+    category.last_modifier_user_id = account.user_id;
     return dispatch => {
-        dispatch(action_check_category(id));
+        dispatch(action_patch_category_request());
+        categories.patchCategory(id, category,
+            () => {
+                dispatch(action_patch_category_success({id: id, category: category}));
+            },
+            error => {
+                dispatch(action_patch_category_failure(error));
+            }
+        );
     }
 }

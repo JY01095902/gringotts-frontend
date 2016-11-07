@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {showPrompt} from '../../actions/application';
-import {checkCategory, addCategory, fetchCategories, deleteCategory} from '../../actions/categories';
+import {checkCategory, addCategory, fetchCategories, deleteCategory, patchCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
+import {arrayRemove} from '../../js/common';
 
 const EmptyCategoriesPanel = ({ categoryType }) => (
     <div style={{color: '#777', textAlign: 'center'}}>
@@ -45,7 +46,7 @@ class CategoriesContainer extends Component {
         this.setState({ categoryType: event.target.dataset.categoryType });
     }
     render() {
-        const {showPrompt, addCategory, deleteCategory, categories} = this.props;
+        const {showPrompt, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
         for(let key in categories.items){
@@ -62,11 +63,32 @@ class CategoriesContainer extends Component {
                                         </label>
                                     </div>
                                     <div className="swipeout-actions-right">
-                                        <a>修改</a>
+                                        <a onClick={() => {showPrompt({
+                                                title: '修改分类名称',
+                                                text: '请输入分类名称',
+                                                onOk: (value) => {
+                                                    if(modifyCategoryName){
+                                                        modifyCategoryName(category.id, value);
+                                                        const liItem = document.getElementsByClassName('swipeout-opened')[0];
+                                                        const liItemClassName = arrayRemove(arrayRemove(liItem.className.split(' '), 'swipeout-opened'), 'transitioning');
+                                                        liItem.className = liItemClassName.join(' ');
+
+                                                        const divSwipeoutContent = liItem.childNodes[0];
+                                                        divSwipeoutContent.style.transform = null;
+
+                                                        const divActions = document.getElementsByClassName('swipeout-actions-opened')[0];
+                                                        const divActionsClassName = arrayRemove(divActions.className.split(' '), 'swipeout-actions-opened');
+                                                        divActions.className = divActionsClassName.join(' ');
+                                                        divActions.childNodes[0].style.transform = null;
+                                                        divActions.childNodes[1].style.transform = null;
+                                                    }
+                                                }
+                                            });
+                                        }}>修改</a>
                                         <a style={{backgroundColor: '#f44336'}}
                                             onClick={() => {
                                                 if(deleteCategory){
-                                                    deleteCategory(category.id)
+                                                    deleteCategory(category.id);
                                                 }}
                                             }>删除</a>
                                     </div>
@@ -181,7 +203,8 @@ function mapDispatchToProps(dispatch) {
         checkCategory: (id) => dispatch(checkCategory(id)),
         addCategory: (category) => dispatch(addCategory(category)),
         fetchCategories: () => dispatch(fetchCategories()),
-        deleteCategory: (id) => dispatch(deleteCategory(id))
+        deleteCategory: (id) => dispatch(deleteCategory(id)),
+        modifyCategoryName: (id, categoryName) => dispatch(patchCategory(id, {id: id, name: categoryName}))
     };
 }
 
