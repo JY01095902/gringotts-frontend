@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {showPrompt} from '../../actions/application';
 import {checkCategory, addCategory, fetchCategories, deleteCategory, patchCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
-import {arrayRemove} from '../../js/common';
 
 const EmptyCategoriesPanel = ({ categoryType }) => (
     <div style={{color: '#777', textAlign: 'center'}}>
@@ -45,20 +44,6 @@ class CategoriesContainer extends Component {
     handleTabSelect(event){
         this.setState({ categoryType: event.target.dataset.categoryType });
     }
-    swipeoutClose(){
-        const liItem = document.getElementsByClassName('swipeout-opened')[0];
-        const liItemClassName = arrayRemove(arrayRemove(liItem.className.split(' '), 'swipeout-opened'), 'transitioning');
-        liItem.className = liItemClassName.join(' ');
-
-        const divSwipeoutContent = liItem.childNodes[0];
-        divSwipeoutContent.style.transform = null;
-
-        const divActions = document.getElementsByClassName('swipeout-actions-opened')[0];
-        const divActionsClassName = arrayRemove(divActions.className.split(' '), 'swipeout-actions-opened');
-        divActions.className = divActionsClassName.join(' ');
-        divActions.childNodes[0].style.transform = null;
-        divActions.childNodes[1].style.transform = null;
-    }
     render() {
         const {showPrompt, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
@@ -89,10 +74,10 @@ class CategoriesContainer extends Component {
                                                     if(modifyCategoryName && value.length > 0){
                                                         modifyCategoryName(category.id, value);
                                                     }
-                                                    this.swipeoutClose();
+                                                    window.app.swipeoutClose(document.getElementsByClassName('swipeout-opened')[0]);
                                                 },
                                                 onCancel: () => {
-                                                    this.swipeoutClose();
+                                                    window.app.swipeoutClose(document.getElementsByClassName('swipeout-opened')[0]);
                                                 }
                                             });
                                         }}>修改</a>
