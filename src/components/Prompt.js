@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Prompt extends Component {
     constructor(props){
@@ -84,5 +84,9 @@ class Prompt extends Component {
         )
      }
 }
+
+Prompt.propTypes = {
+  show: PropTypes.bool.isRequired
+};
 
 export default Prompt;

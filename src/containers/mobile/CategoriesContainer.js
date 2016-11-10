@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {showPrompt, showConfirm} from '../../actions/application';
 import {checkCategory, addCategory, fetchCategories, deleteCategory, patchCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
+import Preloader from '../../components/Preloader';
+import {ADD_CATEGORY_REQUEST, DELETE_CATEGORY_REQUEST, PATCH_CATEGORY_REQUEST} from '../../constants/ActionTypes';
 
 const EmptyCategoriesPanel = ({ categoryType }) => (
     <div style={{color: '#777', textAlign: 'center'}}>
@@ -51,13 +53,31 @@ class CategoriesContainer extends Component {
         for(let key in categories.items){
             if(categories.items[key]){
                 const category = categories.items[key];
+
+                //删除分类按钮部分
+                const DeleteCategoryPreloader = category.dataStatus === DELETE_CATEGORY_REQUEST ?
+                                <Preloader text='正在删除...' style={{color: '#757575'}} 
+                                        indicatorStyle={{width: '24px', height: '24px', left: '10%', top: '80%'}} />
+                                :null;
+
+                //修改分类按钮部分
+                const PatchCategoryPreloader = category.dataStatus === PATCH_CATEGORY_REQUEST ?
+                                <Preloader text='正在修改...' style={{color: '#757575'}} 
+                                        indicatorStyle={{width: '24px', height: '24px', left: '10%', top: '80%'}} />
+                                :null;
                 const Category = <li key={key} className="swipeout">
                                     <div className="swipeout-content" onClick={() => this.handleCheck(category.id)}>
                                         <label className="label-radio item-content" style={{marginBottom: 0}}>
                                             <input type="radio" name="ks-radio" checked={category.checked}/>
                                             <div className="item-media"><i className="icon icon-form-radio"></i></div>
                                             <div className="item-inner">
-                                                <div className="item-title">{category.name}</div>
+                                                <div className="item-title-row">
+                                                    <div className="item-title">{category.name}</div>
+                                                    <div className="item-after">
+                                                        {DeleteCategoryPreloader}
+                                                        {PatchCategoryPreloader}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </label>
                                     </div>
@@ -83,7 +103,8 @@ class CategoriesContainer extends Component {
                                         }}>修改</a>
                                         <a style={{backgroundColor: '#f44336'}}
                                             onClick={() => {showConfirm({
-                                                title: '确定要删除分类名称吗？',
+                                                title: '删除分类',
+                                                text: `确定要删除 "${category.name}" 分类吗?`,
                                                 onOk: () => {
                                                     if(deleteCategory){
                                                         deleteCategory(category.id);
@@ -107,7 +128,7 @@ class CategoriesContainer extends Component {
 
         let PayoutTab = null, IncomeTab = null;
         if(PayoutCategories.length > 0){
-            PayoutTab = <div className="list-block">
+            PayoutTab = <div className="list-block media-list">
                             <ul>
                                 {PayoutCategories}
                             </ul>
@@ -117,7 +138,7 @@ class CategoriesContainer extends Component {
         }
 
         if(IncomeCategories.length > 0){
-            IncomeTab = <div className="list-block">
+            IncomeTab = <div className="list-block media-list">
                             <ul>
                                 {IncomeCategories}
                             </ul>
@@ -138,6 +159,23 @@ class CategoriesContainer extends Component {
             tabTranslate3dX = '-375px';
         };
 
+        //添加分类按钮部分
+        const AddCategoryButton = categories.status === ADD_CATEGORY_REQUEST ?
+                                <Preloader text='正在添加分类...' 
+                                    style={{fontSize: '16px'}} indicatorStyle={{width: '24px', height: '24px'}} />
+                                :<a className="link" 
+                                    onClick={() => {
+                                            showPrompt({
+                                                    title: '添加新分类',
+                                                    text: '请输入分类名称',
+                                                    onOk: (value) => {
+                                                        addCategory({name: value, type: this.state.categoryType});
+                                                    }
+                                                });
+                                            }}>
+                                    <i className="icon icon-plus"></i>
+                                </a>;
+
         return (
             <div className={`popup ${modalStateClass}`} style={{display: 'block'}}>
                 <div className="view navbar-fixed">
@@ -150,17 +188,7 @@ class CategoriesContainer extends Component {
                                     </div>
                                     <div className="center">分类</div>
                                     <div className="right">
-                                        <a className="link" onClick={() => {showPrompt({
-                                            title: '添加新分类',
-                                            text: '请输入分类名称',
-                                            onOk: (value) => {
-                                                addCategory({
-                                                    name: value,
-                                                    type: this.state.categoryType
-                                                });
-                                            }
-                                        });
-                                    }}><i className="icon icon-plus"></i></a>
+                                        {AddCategoryButton}
                                     </div>
                                 </div>
                             </div>

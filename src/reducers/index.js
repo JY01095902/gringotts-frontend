@@ -59,7 +59,8 @@ state: {
                 "name": "AAA",
                 "type": "payout",
                 "id": "58100a9e39426832281a8020",
-                checked: false
+                checked: false,
+                dataStatus: STATUS
             }
         }
     },

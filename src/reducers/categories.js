@@ -44,6 +44,7 @@ const categorysReducer = handleActions({
     FETCH_CATEGORIES_SUCCESS: (state, action) => {
         let items = action.payload.reduce((obj, category) => {
             category.checked = false;
+            category.dataStatus = action.type;
             obj[category.id] = category;
             return obj;
         }, {});
@@ -60,9 +61,13 @@ const categorysReducer = handleActions({
         });
     },
     DELETE_CATEGORY_REQUEST: (state, action) => {
+        let deletedCategory = state.items[action.payload];
+        deletedCategory.dataStatus = action.type;
+        
+        const items = Object.assign({}, state.items, deletedCategory);
         return Object.assign({}, state, {
             status: action.type,
-            error: action.payload
+            items: items
         });
     },
     DELETE_CATEGORY_SUCCESS: (state, action) => {
@@ -75,17 +80,31 @@ const categorysReducer = handleActions({
         });
     },
     DELETE_CATEGORY_FAILURE: (state, action) => {
+        let deletedCategory = state.items[action.payload.id];
+        deletedCategory.dataStatus = action.type;
+        
+        const items = Object.assign({}, state.items, deletedCategory);
         return Object.assign({}, state, {
             status: action.type,
-            error: action.payload
+            items: items,
+            error: action.payload.error
         });
     },
     PATCH_CATEGORY_REQUEST: (state, action) => {
-        return Object.assign({}, state, { status: action.type });
+        let patchedCategory = state.items[action.payload];
+        patchedCategory.dataStatus = action.type;
+        
+        const items = Object.assign({}, state.items, patchedCategory);
+        return Object.assign({}, state, {
+            status: action.type,
+            items: items
+        });
     },
     PATCH_CATEGORY_SUCCESS: (state, action) => {
         let items = state.items;
-        items[action.payload.id] = Object.assign({}, items[action.payload.id], action.payload.category);
+        let patchedCategory = action.payload.category;
+        patchedCategory.dataStatus = action.type;
+        items[action.payload.id] = Object.assign({}, items[action.payload.id], patchedCategory);
 
         return Object.assign({}, state, {
             status: action.type,
@@ -93,9 +112,14 @@ const categorysReducer = handleActions({
         });
     },
     PATCH_CATEGORY_FAILURE: (state, action) => {
+        let patchedCategory = state.items[action.payload.id];
+        patchedCategory.dataStatus = action.type;
+        
+        const items = Object.assign({}, state.items, patchedCategory);
         return Object.assign({}, state, {
             status: action.type,
-            error: action.payload
+            items: items,
+            error: action.payload.error
         });
     }
 }, {});

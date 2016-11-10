@@ -12,13 +12,27 @@ class TestPage extends Component {
                         </div>
                     </div>
                     <div className="page-content">
-                        <div className="list-block">
+                        <span className="preloader preloader-orange">
+                                            <span className="preloader-inner">
+                                                <span className="preloader-inner-gap"></span>
+                                                <span className="preloader-inner-left">
+                                                    <span className="preloader-inner-half-circle"></span>
+                                                </span>
+                                                <span className="preloader-inner-right">
+                                                    <span className="preloader-inner-half-circle"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+                        <div className="list-block media-list">
                             <ul>
                                 <li className="swipeout transitioning">
                                     <div className="item-content swipeout-content">
                                         <div className="item-media"><i className="icon icon-f7"></i></div>
                                         <div className="item-inner">
-                                            <div className="item-title">Swipe left on me please</div>
+                                            <div className="item-title-row">
+                                                <div className="item-title">Swipe left on me please</div>
+                                                <div className="item-after">$16</div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="swipeout-actions-right">

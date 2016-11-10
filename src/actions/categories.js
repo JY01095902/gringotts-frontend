@@ -42,13 +42,22 @@ export function checkCategory(id){
 }
 
 export function addCategory(category){
+    const startTime = new Date();
     category.tenant_id = account.tenant_id;
     category.creator_user_id = account.user_id;
     return dispatch => {
         dispatch(action_add_category_request());
         categories.addCategory(category,
             category => {
-                dispatch(action_add_category_success(category));
+                const endTime = new Date();
+                const diffTime = endTime - startTime;
+                if(diffTime > 500){
+                    dispatch(action_add_category_success(category));
+                }else{
+                    setTimeout(() => {
+                        dispatch(action_add_category_success(category));
+                    }, 500 - diffTime);
+                }
             },
             error => {
                 dispatch(action_add_category_failure(error));
@@ -72,29 +81,47 @@ export function fetchCategories(){
 }
 
 export function deleteCategory(id){
+    const startTime = new Date();
     return dispatch => {
-        dispatch(action_delete_category_request());
+        dispatch(action_delete_category_request(id));
         categories.deleteCategory(id,
             () => {
-                dispatch(action_delete_category_success(id));
+                const endTime = new Date();
+                const diffTime = endTime - startTime;
+                if(diffTime > 500){
+                    dispatch(action_delete_category_success(id));
+                }else{
+                    setTimeout(() => {
+                        dispatch(action_delete_category_success(id));
+                    }, 500 - diffTime);
+                }
             },
             error => {
-                dispatch(action_delete_category_failure(error));
+                dispatch(action_delete_category_failure({id, error}));
             }
         );
     }
 }
 
 export function patchCategory(id, category){
+    const startTime = new Date();
     category.last_modifier_user_id = account.user_id;
     return dispatch => {
-        dispatch(action_patch_category_request());
+        dispatch(action_patch_category_request(id));
         categories.patchCategory(id, category,
             () => {
-                dispatch(action_patch_category_success({id: id, category: category}));
+                const endTime = new Date();
+                const diffTime = endTime - startTime;
+                if(diffTime > 500){
+                    dispatch(action_patch_category_success({id, category}));
+                }else{
+                    setTimeout(() => {
+                        dispatch(action_patch_category_success({id, category}));
+                    }, 500 - diffTime);
+                }
             },
             error => {
-                dispatch(action_patch_category_failure(error));
+                dispatch(action_patch_category_failure({id, error}));
             }
         );
     }

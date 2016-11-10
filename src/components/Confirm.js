@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Confirm extends Component {
     constructor(props){
@@ -46,5 +46,9 @@ class Confirm extends Component {
         )
      }
 }
+
+Confirm.propTypes = {
+  show: PropTypes.bool.isRequired
+};
 
 export default Confirm;
