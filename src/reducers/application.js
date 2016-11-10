@@ -16,12 +16,32 @@ const applicationReducer = handleActions({
                 config: {}
             } 
         });
+    },
+    SHOW_CONFIRM: (state, action) => {
+        return Object.assign({}, state, { 
+            confirm: {
+                show: true,
+                config: action.payload 
+            }
+        });
+    },
+    CLOSE_CONFIRM: (state, action) => {
+        return Object.assign({}, state, { 
+            confirm: {
+                show: false,
+                config: {}
+            } 
+        });
     }
 }, {
     prompt: {
         show: false,
         config: {}
-    } 
+    },
+    confirm: {
+        show: false,
+        config: {}
+    }
 });
 
 export default applicationReducer;

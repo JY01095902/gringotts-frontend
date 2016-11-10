@@ -40,3 +40,6 @@ export const PATCH_CATEGORY_FAILURE = 'PATCH_CATEGORY_FAILURE';
 // Application
 export const SHOW_PROMPT = 'SHOW_PROMPT';
 export const CLOSE_PROMPT = 'CLOSE_PROMPT';
+
+export const SHOW_CONFIRM = 'SHOW_CONFIRM';
+export const CLOSE_CONFIRM = 'CLOSE_CONFIRM';

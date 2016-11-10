@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import Overlay from '../../components/Overlay';
 import Prompt from '../../components/Prompt';
-import {closePrompt} from '../../actions/application';
+import Confirm from '../../components/Confirm';
+import {closePrompt, closeConfirm} from '../../actions/application';
 import { connect } from 'react-redux';
 
 class ApplicationContainer extends Component {
     render() {
-        const {application, closePrompt} = this.props;
-        const {prompt} = application;
+        const {application, closePrompt, closeConfirm} = this.props;
+        const {prompt, confirm} = application;
         return (
             <div>
-                <Overlay show={prompt.show} />
+                <Overlay show={prompt.show || confirm.show} />
                 <Prompt show={prompt.show}
                     title={prompt.config.title} 
                     text={prompt.config.text}
@@ -28,6 +29,22 @@ class ApplicationContainer extends Component {
                             prompt.config.onOk(value);
                         }
                     }} />
+                <Confirm show={confirm.show}
+                    title={confirm.config.title} 
+                    text={confirm.config.text}
+                    helpBlock={confirm.config.helpBlock}
+                    onCancel={() => {
+                        closeConfirm();
+                        if(confirm.config.onCancel){
+                            confirm.config.onCancel();
+                        }
+                    }}
+                    onOk={() => {
+                        closeConfirm();
+                        if(confirm.config.onOk){
+                            confirm.config.onOk();
+                        }
+                    }} />
             </div>
         );
     }
@@ -41,7 +58,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        closePrompt: () => dispatch(closePrompt())
+        closePrompt: () => dispatch(closePrompt()),
+        closeConfirm: () => dispatch(closeConfirm())
     };
 }
 

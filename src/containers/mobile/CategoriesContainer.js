@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {showPrompt} from '../../actions/application';
+import {showPrompt, showConfirm} from '../../actions/application';
 import {checkCategory, addCategory, fetchCategories, deleteCategory, patchCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
 
@@ -45,7 +45,7 @@ class CategoriesContainer extends Component {
         this.setState({ categoryType: event.target.dataset.categoryType });
     }
     render() {
-        const {showPrompt, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
+        const {showPrompt, showConfirm, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
         for(let key in categories.items){
@@ -82,11 +82,19 @@ class CategoriesContainer extends Component {
                                             });
                                         }}>修改</a>
                                         <a style={{backgroundColor: '#f44336'}}
-                                            onClick={() => {
-                                                if(deleteCategory){
-                                                    deleteCategory(category.id);
-                                                }}
-                                            }>删除</a>
+                                            onClick={() => {showConfirm({
+                                                title: '确定要删除分类名称吗？',
+                                                onOk: () => {
+                                                    if(deleteCategory){
+                                                        deleteCategory(category.id);
+                                                    }
+                                                    window.app.swipeoutClose(document.getElementsByClassName('swipeout-opened')[0]);
+                                                },
+                                                onCancel: () => {
+                                                    window.app.swipeoutClose(document.getElementsByClassName('swipeout-opened')[0]);
+                                                }
+                                            });
+                                        }}>删除</a>
                                     </div>
                                 </li>;
                 if(category.type === 'payout'){
@@ -196,6 +204,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         showPrompt: (config) => dispatch(showPrompt(config)),
+        showConfirm: (config) => dispatch(showConfirm(config)),
         checkCategory: (id) => dispatch(checkCategory(id)),
         addCategory: (category) => dispatch(addCategory(category)),
         fetchCategories: () => dispatch(fetchCategories()),
