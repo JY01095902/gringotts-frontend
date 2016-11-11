@@ -125,7 +125,7 @@ class NewPaymentPage extends Component {
                             <ul>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="f7-icons">subtitles</i></div>
+                                        <div className="item-media"><i className="material-icons">event_note</i></div>
                                         <div className={`item-inner ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">My name</div>
                                             <div className={`item-input item-input-field ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
@@ -141,7 +141,7 @@ class NewPaymentPage extends Component {
                                 </li>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-email"></i></div>
+                                        <div className="item-media"><i className="material-icons">attach_money</i></div>
                                         <div className={`item-inner ${inputAmountFocusStateClass} ${inputAmountNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Amount</div>
                                             <div className={`item-input item-input-field ${inputAmountFocusStateClass} ${inputAmountNotEmptyStateClass}`}>
@@ -157,9 +157,9 @@ class NewPaymentPage extends Component {
                                 </li>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-gender"></i></div>
+                                        <div className="item-media"><i className="material-icons">account_balance_wallet</i></div>
                                         <div className={`item-inner ${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}>
-                                            <div className="item-title floating-label">Gender</div>
+                                            <div className="item-title floating-label">Vault</div>
                                             <div className={`item-input item-input-field ${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}>
                                                 <select className={`${inputVaultFocusStateClass} ${inputVaultNotEmptyStateClass}`}
                                                     name='vault'
@@ -177,7 +177,7 @@ class NewPaymentPage extends Component {
                                 </li>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-gender"></i></div>
+                                        <div className="item-media"><i className="material-icons">games</i></div>
                                         <div className={`item-inner ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">分类</div>
                                             <div className={`item-input item-input-field ${inputCategoryFocusStateClass} ${inputCategoryNotEmptyStateClass}`}
@@ -194,7 +194,7 @@ class NewPaymentPage extends Component {
                                 </li>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-url"></i></div>
+                                        <div className="item-media"><i className="material-icons">date_range</i></div>
                                         <div className={`item-inner ${inputDateFocusStateClass} ${inputDateNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">日期</div>
                                             <div className={`item-input item-input-field ${inputDateFocusStateClass} ${inputDateNotEmptyStateClass}`}>
@@ -210,7 +210,7 @@ class NewPaymentPage extends Component {
                                 </li>
                                 <li className="align-top">
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-comment"></i></div>
+                                        <div className="item-media"><i className="material-icons">message</i></div>
                                         <div className={`item-inner ${inputRemarkFocusStateClass} ${inputRemarkNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">Resizeable Textarea</div>
                                             <div className={`item-input item-input-field ${inputRemarkFocusStateClass} ${inputRemarkNotEmptyStateClass}`}>
