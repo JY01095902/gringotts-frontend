@@ -27,20 +27,37 @@ class CategoriesContainer extends Component {
         this.props.fetchCategories();
     }
     handleClose(){
-        const {onClose} = this.props;
+        const {categories, onClose} = this.props;
         if(onClose){
-            onClose(this.state.checkedCategory);
+
+            let checkedCategory = null;
+            for(let key in categories.items){
+                if(categories.items[key]){
+                    const category = categories.items[key];
+                    if(category.checked){
+                        checkedCategory = category;
+                        break;
+                    }
+                }
+            }
+            onClose(checkedCategory);
         }
     }
-    handleCheck(id){   
+    handleCheck(id, event){   
         const {categories, checkCategory} = this.props;
+        if(categories.items[id].dataStatus === PATCH_CATEGORY_REQUEST
+            || categories.items[id].dataStatus === DELETE_CATEGORY_REQUEST){
+            if (event && event.preventDefault ) {
+                event.preventDefault();
+            } else {
+                window.event.returnValue = false;
+            }
+            return;
+        }
         checkCategory(id);
-        this.setState({
-            checkedCategory: categories.items[id]
-        });
+
         setTimeout((function(){
-            const {onClose} = this.props;
-            onClose(this.state.checkedCategory);
+            this.handleClose();
         }).bind(this), 500);
     }
     handleTabSelect(event){
@@ -54,19 +71,19 @@ class CategoriesContainer extends Component {
             if(categories.items[key]){
                 const category = categories.items[key];
 
+                const preloaderStyle = {color: '#757575'};
+                const indicatorConfig = {width: '16px', height: '16px', left: '16%', top: '104%', thickness: '3px'};
                 //删除分类按钮部分
                 const DeleteCategoryPreloader = category.dataStatus === DELETE_CATEGORY_REQUEST ?
-                                <Preloader text='正在删除...' style={{color: '#757575'}} 
-                                        indicatorStyle={{width: '24px', height: '24px', left: '10%', top: '80%'}} />
+                                <Preloader text='正在删除...' style={preloaderStyle} indicatorConfig={indicatorConfig} />
                                 :null;
 
                 //修改分类按钮部分
                 const PatchCategoryPreloader = category.dataStatus === PATCH_CATEGORY_REQUEST ?
-                                <Preloader text='正在修改...' style={{color: '#757575'}} 
-                                        indicatorStyle={{width: '24px', height: '24px', left: '10%', top: '80%'}} />
+                                <Preloader text='正在修改...' style={preloaderStyle} indicatorConfig={indicatorConfig} />
                                 :null;
                 const Category = <li key={key} className="swipeout">
-                                    <div className="swipeout-content" onClick={() => this.handleCheck(category.id)}>
+                                    <div className="swipeout-content" onClick={(event) => this.handleCheck(category.id, event)}>
                                         <label className="label-radio item-content" style={{marginBottom: 0}}>
                                             <input type="radio" name="ks-radio" checked={category.checked}/>
                                             <div className="item-media"><i className="icon icon-form-radio"></i></div>
@@ -162,7 +179,7 @@ class CategoriesContainer extends Component {
         //添加分类按钮部分
         const AddCategoryButton = categories.status === ADD_CATEGORY_REQUEST ?
                                 <Preloader text='正在添加分类...' 
-                                    style={{fontSize: '16px'}} indicatorStyle={{width: '24px', height: '24px'}} />
+                                    style={{fontSize: '16px'}} indicatorConfig={{width: '18px', height: '18px', thickness: '3px'}} />
                                 :<a className="link" 
                                     onClick={() => {
                                             showPrompt({
