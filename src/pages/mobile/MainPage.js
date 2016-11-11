@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ApplicationContainer from '../../containers/mobile/ApplicationContainer';
-import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.min.css';
-import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.colors.min.css';
-import '../../vendors/Framework7-1.4.2/kitchen-sink-material/css/kitchen-sink.css';
+// import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.min.css';
+// import '../../vendors/Framework7-1.4.2/dist/css/framework7.material.colors.min.css';
+// import '../../vendors/Framework7-1.4.2/kitchen-sink-material/css/kitchen-sink.css';
 import '../../vendors/font-awesome-4.6.3/css/font-awesome.min.css';
+// import 'framework7-icons/css/framework7-icons.css';
 import '../../css/mobile/MainPage.css';
 
 function arrayContains (array, value)

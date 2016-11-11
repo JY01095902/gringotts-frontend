@@ -125,7 +125,7 @@ class NewPaymentPage extends Component {
                             <ul>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-form-name"></i></div>
+                                        <div className="item-media"><i className="f7-icons">subtitles</i></div>
                                         <div className={`item-inner ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>
                                             <div className="item-title floating-label">My name</div>
                                             <div className={`item-input item-input-field ${inputNameFocusStateClass} ${inputNameNotEmptyStateClass}`}>

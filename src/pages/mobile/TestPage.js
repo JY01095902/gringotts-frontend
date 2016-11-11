@@ -23,6 +23,7 @@ class TestPage extends Component {
                                                 </span>
                                             </span>
                                         </span>
+                        <i className="icon">done</i>
                         <div className="list-block media-list">
                             <ul>
                                 <li className="swipeout transitioning">
