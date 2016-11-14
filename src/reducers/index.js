@@ -7,10 +7,27 @@ state: {
             config: {
                 title: '',
                 text: '',
+                helpBlock: {text: '', style: {}},
                 onOk: (value) => (value){ ... },
                 onCancel: () => (){ ... }
             }
         },
+        confirm: {
+            show: false,
+            config: {
+                title: '',
+                text: '',
+                helpBlock: {text: '', style: {}},
+                onOk: (value) => (value){ ... },
+                onCancel: () => (){ ... }
+            }
+        },
+        popover: {
+            show: false,
+            config: {
+                content: <ReactComponent />
+            }
+        }
         ...
     }
     vaults: {

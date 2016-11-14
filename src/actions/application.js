@@ -2,7 +2,9 @@ import {
     SHOW_PROMPT,
     CLOSE_PROMPT,
     SHOW_CONFIRM,
-    CLOSE_CONFIRM
+    CLOSE_CONFIRM,
+    SHOW_POPOVER,
+    CLOSE_POPOVER
 } from '../constants/ActionTypes';
 import { createAction } from 'redux-actions';
 
@@ -33,5 +35,20 @@ export function showConfirm(config){
 export function closeConfirm(){
     return dispatch => {
         dispatch(action_close_confirm());
+    }
+}
+
+let action_show_popover = createAction(SHOW_POPOVER);
+let action_close_popover = createAction(CLOSE_POPOVER);
+
+export function showPopover(config){
+    return dispatch => {
+        dispatch(action_show_popover(config));
+    }
+}
+
+export function closePopover(){
+    return dispatch => {
+        dispatch(action_close_popover());
     }
 }

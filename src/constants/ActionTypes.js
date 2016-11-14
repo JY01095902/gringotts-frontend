@@ -43,3 +43,6 @@ export const CLOSE_PROMPT = 'CLOSE_PROMPT';
 
 export const SHOW_CONFIRM = 'SHOW_CONFIRM';
 export const CLOSE_CONFIRM = 'CLOSE_CONFIRM';
+
+export const SHOW_POPOVER = 'SHOW_POPOVER';
+export const CLOSE_POPOVER = 'CLOSE_POPOVER';

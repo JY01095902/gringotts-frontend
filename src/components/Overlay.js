@@ -1,11 +1,24 @@
 import React, { PropTypes } from 'react';
+import {closePopover} from '../actions/application';
+import { connect } from 'react-redux';
 
-const Overlay = ({ show }) => (
-    <div className={`modal-overlay ${show ? 'modal-overlay-visible' : ''}`}></div> 
+const Overlay = ({ show, closePopover }) => (
+    <div className={`modal-overlay ${show ? 'modal-overlay-visible' : ''}`}
+      onClick={() => closePopover()}></div> 
 );
 
 Overlay.propTypes = {
   show: PropTypes.bool.isRequired
 };
 
-export default Overlay;
+function mapStateToProps(state) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        closePopover: () => dispatch(closePopover())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overlay);

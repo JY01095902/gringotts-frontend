@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import Overlay from '../../components/Overlay';
 import Prompt from '../../components/Prompt';
 import Confirm from '../../components/Confirm';
+import Popover from '../../components/Popover';
 import {closePrompt, closeConfirm} from '../../actions/application';
 import { connect } from 'react-redux';
 
 class ApplicationContainer extends Component {
     render() {
         const {application, closePrompt, closeConfirm} = this.props;
-        const {prompt, confirm} = application;
+        const {prompt, confirm, popover} = application;
         return (
             <div>
-                <Overlay show={prompt.show || confirm.show} />
+                <Overlay show={prompt.show || confirm.show || popover.show} />
                 <Prompt show={prompt.show}
                     title={prompt.config.title} 
                     text={prompt.config.text}
@@ -45,6 +46,9 @@ class ApplicationContainer extends Component {
                             confirm.config.onOk();
                         }
                     }} />
+                <Popover show={popover.show} style={popover.config.style}>
+                    {popover.config ? popover.config.content : <div>没有添加内容</div>}
+                </Popover>
             </div>
         );
     }

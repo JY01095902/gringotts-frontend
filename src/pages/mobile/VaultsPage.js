@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import MenuContainer from '../../containers/mobile/MenuContainer';
 
-class TestPage extends Component {
+class VaultsPage extends Component {
     render() {
         return (
             <div className="view view-main">
@@ -10,23 +9,9 @@ class TestPage extends Component {
                     <div className="navbar">
                         <div className="navbar-inner">
                             <div className="center">Test</div>
-                            <div className="right">
-                                <MenuContainer />
-                            </div>
                         </div>
                     </div>
                     <div className="page-content">
-                        <span className="preloader preloader-orange">
-                                            <span className="preloader-inner">
-                                                <span className="preloader-inner-gap"></span>
-                                                <span className="preloader-inner-left">
-                                                    <span className="preloader-inner-half-circle"></span>
-                                                </span>
-                                                <span className="preloader-inner-right">
-                                                    <span className="preloader-inner-half-circle"></span>
-                                                </span>
-                                            </span>
-                                        </span>
                         <div className="list-block media-list">
                             <ul>
                                 <li className="swipeout transitioning">
@@ -72,4 +57,4 @@ class TestPage extends Component {
     }
 }
 
-export default TestPage;
+export default VaultsPage;

@@ -32,6 +32,22 @@ const applicationReducer = handleActions({
                 config: {}
             } 
         });
+    },
+    SHOW_POPOVER: (state, action) => {
+        return Object.assign({}, state, { 
+            popover: {
+                show: true,
+                config: action.payload 
+            }
+        });
+    },
+    CLOSE_POPOVER: (state, action) => {
+        return Object.assign({}, state, { 
+            popover: {
+                show: false,
+                config: {}
+            } 
+        });
     }
 }, {
     prompt: {
@@ -39,6 +55,10 @@ const applicationReducer = handleActions({
         config: {}
     },
     confirm: {
+        show: false,
+        config: {}
+    },
+    popover: {
         show: false,
         config: {}
     }
