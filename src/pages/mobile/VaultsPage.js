@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MenuContainer from '../../containers/mobile/MenuContainer';
 
 class VaultsPage extends Component {
     render() {
@@ -8,7 +9,10 @@ class VaultsPage extends Component {
                   <div className="page" data-page="home">
                     <div className="navbar">
                         <div className="navbar-inner">
-                            <div className="center">Test</div>
+                            <div className="center">Vaults</div>
+                            <div className="right">
+                                <MenuContainer />
+                            </div>
                         </div>
                     </div>
                     <div className="page-content">
