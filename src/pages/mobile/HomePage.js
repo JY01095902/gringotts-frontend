@@ -152,13 +152,13 @@ class HomePage extends Component {
                             <div className="right">
                                 <a className="link open-panel icon-only"
                                     onClick={this.handleMenuOpen}>
-                                    <i className="icon icon-bars"></i>
+                                    <i className="material-icons">menu</i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <a href='#/mobile/newPayment' className="floating-button" style={{background: '#e91e63'}}>
-                        <i className="icon icon-plus"></i>
+                        <i className="material-icons">add</i>
                     </a>
                     <div className="page-content" style={{paddingBottom: '56px'}}>
                         {Payments}

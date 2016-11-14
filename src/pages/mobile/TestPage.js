@@ -23,12 +23,11 @@ class TestPage extends Component {
                                                 </span>
                                             </span>
                                         </span>
-                        <i className="icon">done</i>
                         <div className="list-block media-list">
                             <ul>
                                 <li className="swipeout transitioning">
                                     <div className="item-content swipeout-content">
-                                        <div className="item-media"><i className="icon icon-f7"></i></div>
+                                        <div className="item-media"><i className="material-icons">3d_rotation</i></div>
                                         <div className="item-inner">
                                             <div className="item-title-row">
                                                 <div className="item-title">Swipe left on me please</div>
@@ -42,7 +41,7 @@ class TestPage extends Component {
                                 </li>
                                 <li className="swipeout">
                                     <div className="item-content swipeout-content">
-                                        <div className="item-media"><i className="icon icon-f7"></i></div>
+                                        <div className="item-media"><i className="material-icons">3d_rotation</i></div>
                                         <div className="item-inner">
                                             <div className="item-title">Swipe left on me too</div>
                                         </div>
@@ -53,7 +52,7 @@ class TestPage extends Component {
                                 </li>
                                 <li>
                                     <div className="item-content">
-                                        <div className="item-media"><i className="icon icon-f7"></i></div>
+                                        <div className="item-media"><i className="material-icons">3d_rotation</i></div>
                                         <div className="item-inner">
                                             <div className="item-title">I am not removable</div>
                                         </div>

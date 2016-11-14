@@ -190,7 +190,7 @@ class CategoriesContainer extends Component {
                                                     }
                                                 });
                                             }}>
-                                    <i className="icon icon-plus"></i>
+                                    <i className="material-icons">add</i>
                                 </a>;
 
         return (
@@ -201,7 +201,7 @@ class CategoriesContainer extends Component {
                             <div className="navbar">
                                 <div className="navbar-inner">
                                     <div className="left">
-                                        <a className="link" onClick={this.handleClose}><i className="icon icon-close"></i></a>
+                                        <a className="link" onClick={this.handleClose}><i className="material-icons">close</i></a>
                                     </div>
                                     <div className="center">分类</div>
                                     <div className="right">

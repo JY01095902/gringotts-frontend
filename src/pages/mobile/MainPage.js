@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ApplicationContainer from '../../containers/mobile/ApplicationContainer';
-import '../../vendors/font-awesome-4.6.3/css/font-awesome.min.css';
 import '../../css/mobile/MainPage.css';
 
 function arrayContains (array, value)
@@ -55,7 +54,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-list-alt fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-media"><i className="material-icons">payment</i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">明细</div>
                                                         </div>
@@ -64,7 +63,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-pie-chart fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-media"><i className="material-icons">pie_chart</i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">统计</div>
                                                         </div>
@@ -74,7 +73,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-credit-card-alt fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-media"><i className="material-icons">account_balance_wallet</i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">金库</div>
                                                         </div>
@@ -84,7 +83,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-user fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-media"><i className="material-icons">person</i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">我</div>
                                                         </div>
@@ -94,7 +93,7 @@ class MainPage extends Component {
                                             <li>
                                                 <a href='#/mobile/test' className="item-link close-panel">
                                                     <div className="item-content">
-                                                        <div className="item-media"><i className="icon fa fa-user fa-lg" style={{color: '#757575'}}></i></div>
+                                                        <div className="item-media"><i className="material-icons">bug_report</i></div>
                                                         <div className="item-inner">
                                                             <div className="item-title">测试</div>
                                                         </div>

@@ -113,10 +113,10 @@ class NewPaymentPage extends Component {
                     </div>
                     <div className="toolbar toolbar-bottom">
                         <div className="toolbar-inner">
-                            <a href="#/mobile" className="link"><i className="icon icon-back"></i></a>
+                            <a href="#/mobile" className="link"><i className="material-icons">arrow_back</i></a>
                             <a className="link"
                                 onClick={this.handleComplete}>
-                                <i className="icon icon-check"></i>{}<span style={{marginLeft: '3px'}}>完成</span>
+                                <i className="material-icons">done</i>{}<span style={{marginLeft: '3px'}}>完成</span>
                             </a>
                         </div>
                     </div>
