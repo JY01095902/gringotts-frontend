@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {formatDate} from '../../js/common';
-import '../../css/mobile/NewPaymentPage.css';
 import CategoriesPopup from './CategoriesPopup' 
 
 class NewPaymentPage extends Component {

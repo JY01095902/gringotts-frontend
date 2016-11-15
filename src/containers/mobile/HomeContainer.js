@@ -28,18 +28,6 @@ class HomeContainer extends Component {
             payments: payments
         };
     }
-    // speed-dial 例子
-    // handleSpeedDialClick(event){
-    //     const speedDial = event.target.tagName === 'A' ? event.target.parentNode : event.target.parentNode.parentNode;    
-    //     const classNames = speedDial.className.split(' ');
-    //     if(arrayContains(classNames, 'speed-dial-opened')){
-    //         speedDial.className = arrayRemove(classNames, 'speed-dial-opened').join(' ');
-    //     }else{
-    //         classNames.push('speed-dial-opened');
-    //         speedDial.className = classNames.join(' ');
-    //     }
-    // }
-
     render() {
         let payments = {};
         for(let key in this.state.payments){
@@ -98,25 +86,10 @@ class HomeContainer extends Component {
                     </div>);
             }
         }
-        
-        // speed-dial 例子
-        // <div className="speed-dial">
-        //     <a className="floating-button" style={{background: '#e91e63'}}
-        //         onClick={this.handleSpeedDialClick}>
-        //         <i className="icon icon-plus"></i>
-        //         <i className="icon icon-close"></i>
-        //     </a>
-        //     <div className="speed-dial-buttons">
-        //         <a style={{background: '#e91e63'}}><i className="icon ks-icon-email"></i></a>
-        //         <a style={{background: '#e91e63'}}><i className="icon ks-icon-calendar"></i></a>
-        //         <a style={{background: '#e91e63'}}><i className="icon ks-icon-upload"></i></a>
-        //     </div>
-        // </div>
-        
         return (
             <div className="view view-main">
                 <div className="pages navbar-fixed">
-                  <div className="page" data-page="home">
+                  <div className="page">
                     <div className="navbar">
                         <div className="navbar-inner">
                             <div className="center">明细</div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {showPopover, closePopover} from '../../actions/application';
 import { connect } from 'react-redux';
+import {showPopover, closePopover} from '../../actions/application';
 
 class MenuContainer extends Component {
     render() {
@@ -66,7 +66,8 @@ class MenuContainer extends Component {
                     style: {
                         width: '200px',
                         top: '8px',
-                        left: `${screen.width - 200 - 8}px`
+                        left: 'initial',
+                        right: '8px'
                     },
                     content: menuPopoverContent
                 })}>

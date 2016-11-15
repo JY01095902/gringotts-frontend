@@ -7,7 +7,7 @@ import {ADD_CATEGORY_REQUEST, DELETE_CATEGORY_REQUEST, PATCH_CATEGORY_REQUEST} f
 
 const EmptyCategoriesPanel = ({ categoryType }) => (
     <div style={{color: '#777', textAlign: 'center'}}>
-        <p style={{color: '#c7c7cc', fontSize: '64px', textAlign: 'center'}}>:-(</p>
+        <p style={{color: '#c7c7cc', fontSize: '64px', textAlign: 'center'}}>: (</p>
         <p>抱歉，您还没有添加过任何的{categoryType === 'payment'? '支出': '收入'}分类；</p>
         <p>点击右上角的 “+” 号，添加一个吧。</p>
     </div>
