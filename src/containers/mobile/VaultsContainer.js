@@ -15,7 +15,7 @@ class VaultsContainer extends Component {
             <div className="list-block media-list">
                 <ul>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/newVault?vaultType=cash" className="item-link item-content">
+                        <a href="#/mobile/newVault?type=cash" className="item-link item-content">
                             <div className="item-media">
                                 <img alt='' src={icon_cash} style={{width: '24px', height: '24px'}} />
                             </div>
@@ -27,7 +27,7 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/newVault?vaultType=weChatPay" className="item-link item-content">
+                        <a href="#/mobile/newVault?type=weChatPay" className="item-link item-content">
                             <div className="item-media">
                                 <img alt='' src={icon_weChatPay} style={{width: '24px', height: '24px'}} />
                             </div>
@@ -39,7 +39,7 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/newVault?vaultType=aliPay" className="item-link item-content">
+                        <a href="#/mobile/newVault?type=aliPay" className="item-link item-content">
                             <div className="item-media">
                                 <img alt='' src={icon_aliPay} style={{width: '24px', height: '24px'}} />
                             </div>
@@ -51,7 +51,7 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/newVault?vaultType=creditCard" className="item-link item-content">
+                        <a href="#/mobile/newVault?type=creditCard" className="item-link item-content">
                             <div className="item-media">
                                 <img alt='' src={icon_creditCard} style={{width: '24px', height: '24px'}} />
                             </div>
@@ -63,7 +63,7 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/newVault?vaultType=savingsCard" className="item-link item-content">
+                        <a href="#/mobile/newVault?type=savingsCard" className="item-link item-content">
                             <div className="item-media">
                                 <img alt='' src={icon_savingsCard} style={{width: '24px', height: '24px'}} />
                             </div>
