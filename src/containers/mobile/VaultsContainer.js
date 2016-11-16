@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import MenuContainer from './MenuContainer';
 import {showPopover, closePopover} from '../../actions/application';
 import icon_aliPay from '../../icons/aliPay.svg';
-import icon_wechatPay from '../../icons/wechatPay.svg';
+import icon_weChatPay from '../../icons/weChatPay.svg';
+import icon_cash from '../../icons/cash.svg';
 import icon_creditCard from '../../icons/creditCard.svg';
-import icon_savingCard from '../../icons/savingCard.svg';
-import icon_word_chu from '../../icons/word-chu.svg';
-import icon_word_xin from '../../icons/word-xin.svg';
+import icon_savingsCard from '../../icons/savingsCard.svg';
 
 class VaultsContainer extends Component {
     render() {
@@ -16,21 +15,33 @@ class VaultsContainer extends Component {
             <div className="list-block media-list">
                 <ul>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile" className="item-link item-content">
+                        <a href="#/mobile/newVault?vaultType=cash" className="item-link item-content">
                             <div className="item-media">
-                                <img alt='' src={icon_aliPay} style={{width: '24px', height: '24px'}} />
+                                <img alt='' src={icon_cash} style={{width: '24px', height: '24px'}} />
                             </div>
                             <div className="item-inner">
                                 <div className="item-title-row">
-                                    <div className="item-title">微信</div>
+                                    <div className="item-title">现金</div>
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/vaults" className="item-link item-content">
+                        <a href="#/mobile/newVault?vaultType=weChatPay" className="item-link item-content">
                             <div className="item-media">
-                                <img alt='' src={icon_wechatPay} style={{width: '24px', height: '24px'}} />
+                                <img alt='' src={icon_weChatPay} style={{width: '24px', height: '24px'}} />
+                            </div>
+                            <div className="item-inner">
+                                <div className="item-title-row">
+                                    <div className="item-title">微信支付</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li onClick={() => closePopover()}>
+                        <a href="#/mobile/newVault?vaultType=aliPay" className="item-link item-content">
+                            <div className="item-media">
+                                <img alt='' src={icon_aliPay} style={{width: '24px', height: '24px'}} />
                             </div>
                             <div className="item-inner">
                                 <div className="item-title-row">
@@ -40,9 +51,9 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/chart" className="item-link item-content">
+                        <a href="#/mobile/newVault?vaultType=creditCard" className="item-link item-content">
                             <div className="item-media">
-                                <img alt='' src={icon_word_xin} style={{width: '24px', height: '24px'}} />
+                                <img alt='' src={icon_creditCard} style={{width: '24px', height: '24px'}} />
                             </div>
                             <div className="item-inner">
                                 <div className="item-title-row">
@@ -52,9 +63,9 @@ class VaultsContainer extends Component {
                         </a>
                     </li>
                     <li onClick={() => closePopover()}>
-                        <a href="#/mobile/menu" className="item-link item-content">
+                        <a href="#/mobile/newVault?vaultType=savingsCard" className="item-link item-content">
                             <div className="item-media">
-                                <img alt='' src={icon_word_chu} style={{width: '24px', height: '24px'}} />
+                                <img alt='' src={icon_savingsCard} style={{width: '24px', height: '24px'}} />
                             </div>
                             <div className="item-inner">
                                 <div className="item-title-row">

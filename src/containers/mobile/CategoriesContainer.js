@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {showPrompt, showConfirm} from '../../actions/application';
 import {checkCategory, addCategory, fetchCategories, deleteCategory, patchCategory} from '../../actions/categories';
 import { connect } from 'react-redux';
-import Preloader from '../../components/Preloader';
+import Preloader from '../../components/mobile/Preloader';
 import {ADD_CATEGORY_REQUEST, DELETE_CATEGORY_REQUEST, PATCH_CATEGORY_REQUEST} from '../../constants/ActionTypes';
 
 const EmptyCategoriesPanel = ({ categoryType }) => (

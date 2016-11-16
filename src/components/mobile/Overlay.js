@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {closePopover} from '../actions/application';
+import {closePopover} from '../../actions/application';
 import { connect } from 'react-redux';
 
 const Overlay = ({ show, closePopover }) => (

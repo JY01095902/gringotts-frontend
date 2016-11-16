@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Overlay from '../../components/Overlay';
-import Prompt from '../../components/Prompt';
-import Confirm from '../../components/Confirm';
-import Popover from '../../components/Popover';
+import Overlay from '../../components/mobile/Overlay';
+import Prompt from '../../components/mobile/Prompt';
+import Confirm from '../../components/mobile/Confirm';
+import Popover from '../../components/mobile/Popover';
 import {closePrompt, closeConfirm} from '../../actions/application';
 import { connect } from 'react-redux';
 
