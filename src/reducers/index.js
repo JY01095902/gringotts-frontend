@@ -36,7 +36,7 @@ state: {
             title: 'string',
             message: 'string'
         },
-        items: {
+        value: {
             '58100a6539426832281a801f': {
                 "tenant_id": 2,
                 "owner_user_id": 3,
@@ -71,7 +71,7 @@ state: {
             title: 'string',
             message: 'string'
         },
-        items: {
+        value: {
             '58100a9e39426832281a8020': {
                 "name": "AAA",
                 "type": "payout",
@@ -87,7 +87,7 @@ state: {
             title: 'string',
             message: 'string'
         },
-        items: {
+        value: {
             ...
         }
     }

@@ -31,9 +31,9 @@ class CategoriesContainer extends Component {
         if(onClose){
 
             let checkedCategory = null;
-            for(let key in categories.items){
-                if(categories.items[key]){
-                    const category = categories.items[key];
+            for(let key in categories.value){
+                if(categories.value[key]){
+                    const category = categories.value[key];
                     if(category.checked){
                         checkedCategory = category;
                         break;
@@ -45,8 +45,8 @@ class CategoriesContainer extends Component {
     }
     handleCheck(id, event){   
         const {categories, checkCategory} = this.props;
-        if(categories.items[id].dataStatus === PATCH_CATEGORY_REQUEST
-            || categories.items[id].dataStatus === DELETE_CATEGORY_REQUEST){
+        if(categories.value[id].dataStatus === PATCH_CATEGORY_REQUEST
+            || categories.value[id].dataStatus === DELETE_CATEGORY_REQUEST){
             if (event && event.preventDefault ) {
                 event.preventDefault();
             } else {
@@ -67,9 +67,9 @@ class CategoriesContainer extends Component {
         const {showPrompt, showConfirm, addCategory, deleteCategory, categories, modifyCategoryName} = this.props;
         const modalStateClass = this.props.show ? 'modal-in' : 'modal-out'; 
         let PayoutCategories = [], IncomeCategories = [];
-        for(let key in categories.items){
-            if(categories.items[key]){
-                const category = categories.items[key];
+        for(let key in categories.value){
+            if(categories.value[key]){
+                const category = categories.value[key];
 
                 const preloaderStyle = {color: '#757575'};
                 const indicatorConfig = {width: '16px', height: '16px', left: '16%', top: '104%', thickness: '3px'};

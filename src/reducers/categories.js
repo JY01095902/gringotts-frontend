@@ -3,11 +3,11 @@ import { handleActions } from 'redux-actions';
 const categorysReducer = handleActions({
     CHECK_CATEGORY: (state, action) => {
         console.log('state', state)
-        for(let key in state.items){
+        for(let key in state.value){
             if(key === action.payload){
-                state.items[key].checked = true;
+                state.value[key].checked = true;
             }else{
-                state.items[key].checked = false;
+                state.value[key].checked = false;
             }
         }
 
@@ -24,10 +24,10 @@ const categorysReducer = handleActions({
             category.checked = false;
             let normalizedCategory = {};
             normalizedCategory[category.id] = category; 
-            const items = Object.assign({}, state.items, normalizedCategory);
+            const value = Object.assign({}, state.value, normalizedCategory);
             return Object.assign({}, state, {
                 status: action.type,
-                items: items
+                value: value
             });
         }else{
             return Object.assign({}, state, { status: action.type });
@@ -43,7 +43,7 @@ const categorysReducer = handleActions({
         return Object.assign({}, state, { status: action.type });
     },
     FETCH_CATEGORIES_SUCCESS: (state, action) => {
-        let items = action.payload.reduce((obj, category) => {
+        let value = action.payload.reduce((obj, category) => {
             category.checked = false;
             category.dataStatus = action.type;
             obj[category.id] = category;
@@ -52,7 +52,7 @@ const categorysReducer = handleActions({
 
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     FETCH_CATEGORIES_FAILURE: (state, action) => {
@@ -62,72 +62,72 @@ const categorysReducer = handleActions({
         });
     },
     DELETE_CATEGORY_REQUEST: (state, action) => {
-        let deletedCategory = state.items[action.payload];
+        let deletedCategory = state.value[action.payload];
         deletedCategory.dataStatus = action.type;
         let category = {};
         category[deletedCategory.id] = deletedCategory;
         
-        const items = Object.assign({}, state.items, category);
+        const value = Object.assign({}, state.value, category);
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     DELETE_CATEGORY_SUCCESS: (state, action) => {
-        let items = state.items;
-        delete items[action.payload];
+        let value = state.value;
+        delete value[action.payload];
 
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     DELETE_CATEGORY_FAILURE: (state, action) => {
-        let deletedCategory = state.items[action.payload.id];
+        let deletedCategory = state.value[action.payload.id];
         deletedCategory.dataStatus = action.type;
         let category = {};
         category[deletedCategory.id] = deletedCategory;
         
-        const items = Object.assign({}, state.items, category);
+        const value = Object.assign({}, state.value, category);
         return Object.assign({}, state, {
             status: action.type,
-            items: items,
+            value: value,
             error: action.payload.error
         });
     },
     PATCH_CATEGORY_REQUEST: (state, action) => {
-        let patchedCategory = state.items[action.payload];
+        let patchedCategory = state.value[action.payload];
         patchedCategory.dataStatus = action.type;
         let category = {};
         category[patchedCategory.id] = patchedCategory;
 
-        const items = Object.assign({}, state.items, category);
+        const value = Object.assign({}, state.value, category);
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     PATCH_CATEGORY_SUCCESS: (state, action) => {
         let patchedCategory = action.payload.category;
         patchedCategory.dataStatus = action.type;
         let category = {};
-        category[patchedCategory.id] = Object.assign({}, state.items[action.payload.id], patchedCategory);
-        const items = Object.assign({}, state.items, category);
+        category[patchedCategory.id] = Object.assign({}, state.value[action.payload.id], patchedCategory);
+        const value = Object.assign({}, state.value, category);
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     PATCH_CATEGORY_FAILURE: (state, action) => {
-        let patchedCategory = state.items[action.payload.id];
+        let patchedCategory = state.value[action.payload.id];
         patchedCategory.dataStatus = action.type;
         let category = {};
         category[patchedCategory.id] = patchedCategory;
         
-        const items = Object.assign({}, state.items, category);
+        const value = Object.assign({}, state.value, category);
         return Object.assign({}, state, {
             status: action.type,
-            items: items,
+            value: value,
             error: action.payload.error
         });
     }

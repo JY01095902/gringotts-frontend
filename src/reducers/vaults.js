@@ -9,10 +9,10 @@ const vaultsReducer = handleActions({
         if(vault){
             let normalizedVault = {};
             normalizedVault[vault.id] = vault; 
-            const items = Object.assign({}, state.items, normalizedVault);
+            const value = Object.assign({}, state.value, normalizedVault);
             return Object.assign({}, state, {
                 status: action.type,
-                items: items
+                value: value
             });
         }else{
             return Object.assign({}, state, { status: action.type });
@@ -28,14 +28,14 @@ const vaultsReducer = handleActions({
         return Object.assign({}, state, { status: action.type });
     },
     FETCH_VAULTS_SUCCESS: (state, action) => {
-        let items = action.payload.reduce((obj, vault) => {
+        let value = action.payload.reduce((obj, vault) => {
             obj[vault.id] = vault;
             return obj;
         }, {});
 
         return Object.assign({}, state, {
             status: action.type,
-            items: items
+            value: value
         });
     },
     FETCH_VAULTS_FAILURE: (state, action) => {
